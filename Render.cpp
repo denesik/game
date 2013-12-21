@@ -10,7 +10,6 @@ Render::Render()
 	context = nullptr;
 }
 
-
 Render::~Render(void)
 {
 }
@@ -129,4 +128,31 @@ void Render::PopProjectionMatrix()
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glPopAttrib();
+}
+
+void Render::DrawRectangle(Rect rectangle)
+{
+	glBegin(GL_LINES);
+		glVertex2f(rectangle.x, rectangle.y);						//низ лево
+		glVertex2f(rectangle.x + rectangle.w, rectangle.y);			//низ право
+
+		glVertex2f(rectangle.x + rectangle.w, rectangle.y);		 
+		glVertex2f(rectangle.x + rectangle.w, rectangle.y + rectangle.h);//право верх
+
+		glVertex2f(rectangle.x + rectangle.w, rectangle.y + rectangle.h);//право верх
+		glVertex2f(rectangle.x, rectangle.y + rectangle.h);			//лево верх
+
+		glVertex2f(rectangle.x, rectangle.y + rectangle.h);			//лево верх
+		glVertex2f(rectangle.x, rectangle.y);						//низ лево
+	glEnd();
+}
+
+void Render::SetTextureManager( TextureManager *_textureManager )
+{
+	textureManager = _textureManager;
+}
+
+TextureManager * Render::GetTextureManager()
+{
+	return textureManager;
 }

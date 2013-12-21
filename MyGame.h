@@ -4,6 +4,7 @@
 #include "game.h"
 #include "GUIManager.h"
 #include "GUIFontManager.h"
+#include "TextureManager.h"
 
 class MyGame : public Game
 {

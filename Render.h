@@ -3,10 +3,11 @@
 
 #include "GameMath.h"
 #include <SDL_render.h>
+#include "TextureManager.h"
 
 class Render
 {
-protected:
+private:
 	SDL_Renderer *render;
 	SDL_Window *window;
 	SDL_GLContext context;
@@ -15,6 +16,8 @@ protected:
 	int width;
 	int height;
 	bool fullScreen;
+
+	TextureManager *textureManager;
 
 public:
 	Render(void);
@@ -27,10 +30,15 @@ public:
 	void Cleanup();
 	bool InitGL();
 
+	void SetTextureManager(TextureManager *textureManager);
+	TextureManager *GetTextureManager();
+
 	void SwapBuffers();
 
 	void PushProjectionMatrix(); 
 	void PopProjectionMatrix(); 
+
+	void DrawRectangle(Rect rectangle);
 };
 
 #endif // Render_h__

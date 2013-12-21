@@ -13,6 +13,8 @@ Game::Game(void)
 	render = new Render();
 	eventHandler = new EventHandler();
 	gameComponentHandler = new GameComponentManager();
+	textureManager = new TextureManager();
+	render->SetTextureManager(textureManager);
 }
 
 
@@ -101,7 +103,7 @@ void Game::Cleanup()
 	gameComponentHandler->Cleanup();
 
 	render->Cleanup();
-
+	textureManager->Cleanup();
 	SDL_Quit();
 }
 

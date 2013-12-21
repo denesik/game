@@ -19,9 +19,6 @@ MyGame::~MyGame(void)
 
 }
 
-//PRN35__C.TTF
-//REVERNCE.TTF
-
 bool MyGame::Initialize()
 {
 	fontManager = new GUIFontManager();
@@ -40,6 +37,8 @@ bool MyGame::Initialize()
 
 	Game::Initialize();
 	
+	textureManager->AddFromFile("gui.png","gui");
+
 	return true;
 }
 
@@ -53,9 +52,7 @@ void MyGame::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();	
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);	
-
-	glColor3ub(0xff,0,0xff);			
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);			
 
 	Game::Draw();
 }

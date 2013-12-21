@@ -103,7 +103,7 @@ void Font::MakeDlist ( FT_Face face, unsigned char ch)
 	{
 		for(int i=0; i < width; i++)
 		{
-			expanded_data[2 * (i + j * width)] = 128;
+			expanded_data[2 * (i + j * width)] = 255;
 			expanded_data[2 * (i + j * width) + 1] = 
 				(i >= bitmap.width || j >= bitmap.rows) ? 0 : bitmap.buffer[i + bitmap.width * j];
 		}
@@ -280,31 +280,6 @@ void Font::print(float x, float y, string str)
 		glCallLists(lines[i].length(), GL_UNSIGNED_BYTE, s1);
 		glPopMatrix();
 	}
-
-
-	Rect r = GetRect(str);
-
-
-	glBlendFunc(GL_SRC_COLOR, GL_SRC_COLOR);
-
-	//glLineWidth(1); 
-	glBegin(GL_LINES);
-		glColor3ub(0xff,0,0);	
-
-		glVertex2f(x + r.x, y + r.y);			//низ лево
-		glVertex2f(x + r.x + r.w, y + r.y);		//низ право
-
-		glVertex2f(x + r.x + r.w, y + r.y);		 
-		glVertex2f(x + r.x + r.w, y + r.y + r.h);//право верх
-
-		glVertex2f(x + r.x + r.w, y + r.y + r.h);//право верх
-		glVertex2f(x + r.x, y + r.y + r.h);		//лево верх
-
-		glVertex2f(x + r.x, y + r.y + r.h);		//лево верх
-		glVertex2f(x + r.x, y + r.y);			//низ лево
-
-	glEnd();
-
 
 	glPopAttrib();		
 }

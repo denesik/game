@@ -24,6 +24,7 @@
     <ClInclude Include="GUIObject.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EventHandler.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
@@ -74,8 +76,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>e:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\include\;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\objs\win32\vc2010;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2_image-2.0.0\include;e:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\include\;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2_image-2.0.0\lib\x86;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\objs\win32\vc2010;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,7 +94,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glu32.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;opengl32.lib;glu32.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>

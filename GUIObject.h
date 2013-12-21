@@ -15,13 +15,14 @@ protected:
 	std::string fontName;
 	Font *font;
 
-	bool isVisible;
-	bool isEnable;
+	virtual void SetFont(Font *font);
+	virtual Font *GetFont();
 
 	Rect boundBox;
 
-	virtual void SetFont(Font *font);
-	virtual Font *GetFont();
+public:
+	bool isVisible;
+	bool isActive;
 
 public:
 	GUIObject(void);

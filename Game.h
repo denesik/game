@@ -5,14 +5,16 @@
 #include "GameComponent.h"
 #include "GameComponentManager.h"
 #include "Render.h"
+#include "TextureManager.h"
 
 class Game
 {
 protected:
 
 	IEventHandler *eventHandler;
-	GameComponentManager * gameComponentHandler;
-	Render * render;
+	GameComponentManager *gameComponentHandler;
+	Render *render;
+	TextureManager *textureManager;
 
 	bool Running;
 

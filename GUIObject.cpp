@@ -5,6 +5,9 @@ GUIObject::GUIObject()
 {
 	font = nullptr;
 	fontName = "FontDefault";
+
+	bool isVisible = true;
+	bool isActive = true;
 }
 
 

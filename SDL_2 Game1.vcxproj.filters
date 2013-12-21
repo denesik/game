@@ -66,6 +66,9 @@
     <ClInclude Include="GameComponentManager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Рендер</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -109,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="GameComponentManager.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Рендер</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
