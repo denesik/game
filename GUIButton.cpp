@@ -27,7 +27,7 @@ void GUIButton::Draw(Render *render)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
 
-	glBindTexture(GL_TEXTURE_2D, render->GetTextureManager()->Get("gui"));
+	glBindTexture(GL_TEXTURE_2D, render->GetTextureManager()->GetTexture("gui")->textureId);
 
 	glColor4ub(0xb0,0xb0,0xb0,0xff);	
 	render->DrawQuad2D(300,300,316,316);

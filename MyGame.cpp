@@ -37,7 +37,15 @@ bool MyGame::Initialize()
 
 	Game::Initialize();
 	
-	textureManager->AddFromFile("gui2.png","gui");
+
+	textureManager->AddTexture(
+		textureManager->GetTextureFromImage(
+			textureManager->LoadImageFromSurface(
+				textureManager->LoadSurfaceFromFile("gui2.png")
+				),
+			0,0,15,15
+		),"gui"
+	);
 
 	return true;
 }

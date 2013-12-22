@@ -11,51 +11,25 @@ TextureManager::~TextureManager(void)
 {
 }
 
-unsigned int TextureManager::AddFromFile(std::string fileName, std::string name)
-{
-	auto f= textureList.find(name);
-	if(f != textureList.end())
-		return 0;
 
+SDL_Surface *TextureManager::LoadSurfaceFromFile(std::string fileName)
+{
 	SDL_Surface *surface = IMG_Load(fileName.c_str());
 	if(surface == nullptr)
 	{
 		throw std::runtime_error("IMG_Load failed (there is probably a problem with your font file)");
-		return 0;
+		return nullptr;
 	}
-
-	GLuint tex;
-
-	glGenTextures(1, &tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
-
-	SDL_FreeSurface(surface);
-
-	textureList[name] = tex;
-
-	return 1;
+	return surface;
 }
 
-int TextureManager::Get( std::string fontName )
-{
-	auto f= textureList.find(fontName);
-	if(f == textureList.end())
-		return 0;
-
-	return (*f).second;
-}
 
 void TextureManager::Cleanup()
 {
-	for (auto i = textureList.begin(); i != textureList.end(); i++)
+	textureList.clear();
+	for (auto i = imageList.begin(); i != imageList.end(); i++)
 	{
-		glDeleteTextures(1,&((*i).second));
+		glDeleteTextures(1,&((*i).first));
 	}
 }
 
@@ -102,8 +76,49 @@ Texture * TextureManager::GetTextureFromImage( unsigned int image, unsigned int 
 	return texture;
 }
 
-bool TextureManager::AddTexture( Texture *texture )
+bool TextureManager::AddTexture(Texture *texture, std::string name)
 {
+	auto f= textureList.find(name);
+	if(f != textureList.end())
+		return false;
+
+	textureList[name] = texture;
 
 	return true;
+}
+
+bool TextureManager::RemoveTexture(std::string name)
+{
+	auto f= textureList.find(name);
+	if(f == textureList.end())
+		return false;
+
+	auto t = imageList.find(textureList[name]->textureId);
+	if(t == imageList.end())
+	{
+		throw std::runtime_error("RemoveTexture failed");
+		return false;
+	}
+	else
+	{
+		(*t).second.refCount--;
+		if((*t).second.refCount <= 0)
+		{
+			glDeleteTextures(1,&((*t).first));
+			imageList.erase(t);
+		}
+	}
+	textureList.erase(f);
+	return true;
+}
+
+Texture * TextureManager::GetTexture( std::string name )
+{
+	auto f= textureList.find(name);
+	if(f == textureList.end())
+	{
+		throw std::runtime_error("GetTexture failed. Texture not found.");
+		return nullptr;
+	}
+	return (*f).second;
 }
