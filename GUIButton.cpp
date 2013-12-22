@@ -24,16 +24,11 @@ void GUIButton::Draw(Render *render)
 
 	glEnable(GL_TEXTURE_2D);
 
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
 
 	glBindTexture(GL_TEXTURE_2D, render->GetTextureManager()->Get("gui"));
 
-	glColor4ub(0xff,0xff,0xff,0xff);	
-	glBegin(GL_QUADS);
-		glTexCoord2d(0,0); glVertex2f(300,416);
-		glTexCoord2d(0,1); glVertex2f(300,300);
-		glTexCoord2d(1,1); glVertex2f(416,300);
-		glTexCoord2d(1,0); glVertex2f(416,416);
-	glEnd();
+	glColor4ub(0xb0,0xb0,0xb0,0xff);	
+	render->DrawQuad2D(300,300,316,316);
 }

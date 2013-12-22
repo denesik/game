@@ -37,7 +37,7 @@ bool MyGame::Initialize()
 
 	Game::Initialize();
 	
-	textureManager->AddFromFile("gui.png","gui");
+	textureManager->AddFromFile("gui2.png","gui");
 
 	return true;
 }

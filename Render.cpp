@@ -156,3 +156,23 @@ TextureManager * Render::GetTextureManager()
 {
 	return textureManager;
 }
+
+void Render::DrawQuad2D( Rect rectangle )
+{
+	glBegin(GL_TRIANGLE_STRIP);
+		glTexCoord2d(0,1); glVertex2f(rectangle.x,rectangle.y);
+		glTexCoord2d(0,0); glVertex2f(rectangle.x,rectangle.y + rectangle.h);
+		glTexCoord2d(1,1); glVertex2f(rectangle.x + rectangle.w,rectangle.y);
+		glTexCoord2d(1,0); glVertex2f(rectangle.x + rectangle.w,rectangle.y + rectangle.h);
+	glEnd();
+}
+
+void Render::DrawQuad2D(int x1, int y1, int x2, int y2)
+{
+	glBegin(GL_TRIANGLE_STRIP);
+		glTexCoord2d(0,1); glVertex2f(x1,y1);
+		glTexCoord2d(0,0); glVertex2f(x1,y2);
+		glTexCoord2d(1,1); glVertex2f(x2,y1);
+		glTexCoord2d(1,0); glVertex2f(x2,y2);
+	glEnd();
+}
