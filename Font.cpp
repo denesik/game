@@ -54,7 +54,7 @@ bool Font::Generate()
 		return false;
 	}
 
-	textureAtlas.Create(128,256);
+	textureAtlas.Create(256,256);
 
 	for(short i=0;i<GLYPHCOUNT;i++)
 		MakeDlist(face,i);
@@ -69,6 +69,7 @@ bool Font::Generate()
 
 void Font::Cleanup()
 {
+	textureAtlas.Remove();
 	glDeleteLists(listBase,GLYPHCOUNT);
 	glDeleteTextures(GLYPHCOUNT,textures);
 	delete [] textures;
@@ -77,8 +78,8 @@ void Font::Cleanup()
 //Эта функция возвращает число в степени два, большее, чем число a
 inline int Font::NextP2 ( int a )
 {
-	int rval=1;
-	while(rval<a) rval<<=1;
+	int rval = 1;
+	while(rval < a) rval <<= 1;
 	return rval;
 }
 
@@ -142,6 +143,14 @@ void Font::MakeDlist ( FT_Face face, unsigned char ch)
 	}
 	unsigned int x1, y1;
 	textureAtlas.InsertSurface(surface, x1, y1);
+	glyphs[ch].width = bitmap.width;
+	glyphs[ch].height = bitmap.rows;
+	glyphs[ch].offsetDown = bitmap_glyph->top-bitmap.rows;
+	glyphs[ch].texture.u1 = 256.0 / double(x1);
+	glyphs[ch].texture.v1 = 256.0 / double(y1);
+	glyphs[ch].texture.u2 = 256.0 / double(x1 + bitmap.width);
+	glyphs[ch].texture.v2 = 256.0 / double(y1 + bitmap.rows);
+
 	SDL_FreeSurface(surface);
 
 	glBindTexture( GL_TEXTURE_2D, textures[ch]);

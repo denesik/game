@@ -65,8 +65,12 @@ bool TextureAtlas::InsertSurface( SDL_Surface *_surface, unsigned int &x, unsign
 {
 	boxTmp = box;
 	surfaceTmp = _surface;
+	bool result = InsertSurface();
 
-	return InsertSurface();
+	x = xTmp;
+	y = yTmp;
+
+	return result;
 }
 
 bool TextureAtlas::InsertSurface()
@@ -76,8 +80,8 @@ bool TextureAtlas::InsertSurface()
 	if(boxTmp->surfaceHeight == 0 && boxTmp->surfaceWidth == 0)
 	{
 		SDL_Rect dstrect;
-		dstrect.x = boxTmp->x;
-		dstrect.y = boxTmp->y;
+		xTmp = dstrect.x = boxTmp->x;
+		yTmp = dstrect.y = boxTmp->y;
 		// Копируем всю поверхность
 		int r = SDL_BlitSurface(surfaceTmp, nullptr, surface, &dstrect);
 		if(r != 0)

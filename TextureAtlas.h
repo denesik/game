@@ -22,6 +22,9 @@ private:
 	SDL_Surface *surfaceTmp;
 	ElasticBox *boxTmp;
 
+	unsigned int xTmp;
+	unsigned int yTmp;
+
 public:
 	TextureAtlas(void);
 	~TextureAtlas(void);

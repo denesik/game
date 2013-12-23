@@ -14,6 +14,7 @@
 
 #include "GameMath.h"
 #include "TextureAtlas.h"
+#include "TextureManager.h"
 
 class Font
 {
@@ -21,6 +22,16 @@ protected:
 	TextureAtlas textureAtlas;
 
 	static const short GLYPHCOUNT = 256;
+	struct FontTexture
+	{
+		unsigned int textureId;
+		Texture texture;
+		int width;
+		int height;
+		int offsetDown;
+	};
+
+	FontTexture glyphs[GLYPHCOUNT];
 
 	float size;
 	const char *filename;
