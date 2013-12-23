@@ -8,6 +8,7 @@
 class TextureAtlas
 {
 private:
+	static const int indent = 1;
 	struct ElasticBox
 	{
 		int surfaceWidth, surfaceHeight;		// Ўирина и высота "€щика"

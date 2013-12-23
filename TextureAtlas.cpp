@@ -39,6 +39,7 @@ bool TextureAtlas::Create(unsigned int width, unsigned int height)
 #endif
 
 	surface = SDL_CreateRGBSurface(0,width,height,32,rmask, gmask, bmask, amask);
+	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_NONE);
 	//surface = IMG_Load("a1.png");
 	box->x = 0;
 	box->y = 0;
@@ -83,6 +84,7 @@ bool TextureAtlas::InsertSurface()
 		xTmp = dstrect.x = boxTmp->x;
 		yTmp = dstrect.y = boxTmp->y;
 		// Копируем всю поверхность
+		SDL_SetSurfaceBlendMode(surfaceTmp, SDL_BLENDMODE_NONE);
 		int r = SDL_BlitSurface(surfaceTmp, nullptr, surface, &dstrect);
 		if(r != 0)
 		{
@@ -112,26 +114,26 @@ bool TextureAtlas::InsertSurface()
 		{
 			// Правый верхний прямоугольник - маленький
 			boxTmp->childrenBoxSmall->height = h1;
-			boxTmp->childrenBoxSmall->width = boxTmp->width - w1;
-			boxTmp->childrenBoxSmall->x = boxTmp->x + w1;
+			boxTmp->childrenBoxSmall->width = boxTmp->width - w1 - indent;
+			boxTmp->childrenBoxSmall->x = boxTmp->x + w1 + indent;
 			boxTmp->childrenBoxSmall->y = boxTmp->y;
 
 			boxTmp->childrenBoxBig->x = boxTmp->x;
-			boxTmp->childrenBoxBig->y = boxTmp->y + h1;
+			boxTmp->childrenBoxBig->y = boxTmp->y + h1 + indent;
 			boxTmp->childrenBoxBig->width = boxTmp->width;
-			boxTmp->childrenBoxBig->height = boxTmp->height - h1;
+			boxTmp->childrenBoxBig->height = boxTmp->height - h1 - indent;
 		}
 		else
 		{
 			// Левый нижний прямоугольник - маленький
-			boxTmp->childrenBoxSmall->height = boxTmp->height - h1;
+			boxTmp->childrenBoxSmall->height = boxTmp->height - h1 - indent;
 			boxTmp->childrenBoxSmall->width = w1;
 			boxTmp->childrenBoxSmall->x = boxTmp->x;
-			boxTmp->childrenBoxSmall->y = boxTmp->y + h1;
+			boxTmp->childrenBoxSmall->y = boxTmp->y + h1 + indent;
 
-			boxTmp->childrenBoxBig->x = boxTmp->x + w1;
+			boxTmp->childrenBoxBig->x = boxTmp->x + w1 + indent;
 			boxTmp->childrenBoxBig->y = boxTmp->y;
-			boxTmp->childrenBoxBig->width = boxTmp->width - w1;
+			boxTmp->childrenBoxBig->width = boxTmp->width - w1 - indent;
 			boxTmp->childrenBoxBig->height = boxTmp->height;
 		}
 	}

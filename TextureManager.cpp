@@ -37,8 +37,9 @@ void TextureManager::Cleanup()
 	}
 }
 
-unsigned int TextureManager::LoadImageFromSurface( SDL_Surface *surface )
+unsigned int TextureManager::LoadImageFromSurface( SDL_Surface *surface, bool smoothing)
 {
+
 	if(surface == nullptr)
 	{
 		throw std::runtime_error("LoadImageFromSurface failed");
@@ -50,10 +51,14 @@ unsigned int TextureManager::LoadImageFromSurface( SDL_Surface *surface )
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	GLint param = GL_LINEAR;
+	if(!smoothing) param = GL_NEAREST;
 
-	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, param);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, param);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
 
 	imageList[tex].width = surface->w;
@@ -132,9 +137,9 @@ bool TextureManager::LoadTextureFromFile( std::string fileName, std::string name
 {
 	SDL_Surface *s = LoadSurfaceFromFile(fileName);
 	if(!s) return false;
-	SDL_FreeSurface(s);
 
-	Texture * t = GetTextureFromImage(LoadImageFromSurface(s), 0, 0, s->w, s->h);
+	Texture *t = GetTextureFromImage(LoadImageFromSurface(s, true), 0, 0, s->w, s->h);
+	SDL_FreeSurface(s);
 	if(!t) return false;
 
 	return AddTexture(t, name);

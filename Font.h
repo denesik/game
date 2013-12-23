@@ -22,6 +22,8 @@ protected:
 	TextureAtlas textureAtlas;
 
 	static const short GLYPHCOUNT = 256;
+	static const short textureAtlasSizeX = 512;
+	static const short textureAtlasSizeY = 512;
 	struct FontTexture
 	{
 		unsigned int textureId;
@@ -35,11 +37,6 @@ protected:
 
 	float size;
 	const char *filename;
-
-	GLuint *textures;
-	GLuint listBase;
-
-	int glyphSize[GLYPHCOUNT][3];
 
 public:
 	Font(){};
@@ -58,8 +55,7 @@ public:
 	virtual Rect &GetRect(std::string str);
 
 private:
-	virtual inline int NextP2 ( int a );
-	virtual void MakeDlist ( FT_Face face, unsigned char ch);
+	virtual void MakeFontAtlas ( FT_Face face, unsigned char ch);
 
 };
 

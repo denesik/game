@@ -15,19 +15,10 @@ GUIButton::~GUIButton(void)
 
 void GUIButton::Draw(Render *render)
 {
-	glColor3ub(0,0xff,0);		
+	glColor3ub(0,0,0xff);	
 	font->print(150,300,"1234567890\nМама мыла раму.");
 
 	glLineWidth(2);
 	render->DrawRectangle(boundBox);
 
-	glEnable(GL_TEXTURE_2D);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
-
-	glBindTexture(GL_TEXTURE_2D, render->GetTextureManager()->GetTexture("glyph")->textureId);
-
-	glColor3ub(0xff,0,0);	
-	render->DrawQuad2D(300,300,308,308);
 }

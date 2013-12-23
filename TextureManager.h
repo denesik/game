@@ -33,7 +33,7 @@ public:
 	void Cleanup();
 
 	SDL_Surface *LoadSurfaceFromFile(std::string fileName);
-	unsigned int LoadImageFromSurface(SDL_Surface *surface);
+	unsigned int LoadImageFromSurface(SDL_Surface *surface, bool smoothing);
 	Texture *GetTextureFromImage(unsigned int image, unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2);
 	
 	bool AddTexture(Texture *texture, std::string name);
