@@ -69,6 +69,9 @@
     <ClInclude Include="TextureManager.h">
       <Filter>Рендер</Filter>
     </ClInclude>
+    <ClInclude Include="TextureAtlas.h">
+      <Filter>Рендер</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,6 +117,9 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
+      <Filter>Рендер</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAtlas.cpp">
       <Filter>Рендер</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,8 @@
 #include "Font.h"
 #include <gl/GLU.h>
 #include <algorithm>
-
+#include <SDL_surface.h>
+#include <SDL_Image.h>
 using namespace std;
 
 Font::Font(const char *_filename, unsigned int _size)
@@ -52,11 +53,17 @@ bool Font::Generate()
 		throw std::runtime_error("glGenTextures");
 		return false;
 	}
+
+	textureAtlas.Create(128,256);
+
 	for(short i=0;i<GLYPHCOUNT;i++)
 		MakeDlist(face,i);
 
 	FT_Done_Face(face);
 	FT_Done_FreeType(library);
+
+	IMG_SavePNG(textureAtlas.GetAtlas(), "fontAtlas.png");
+
 	return true;
 }
 
@@ -108,6 +115,34 @@ void Font::MakeDlist ( FT_Face face, unsigned char ch)
 				(i >= bitmap.width || j >= bitmap.rows) ? 0 : bitmap.buffer[i + bitmap.width * j];
 		}
 	}
+
+	Uint32 rmask, gmask, bmask, amask;
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	SDL_Surface *surface = SDL_CreateRGBSurface(0,bitmap.width,bitmap.rows,32,rmask,gmask,bmask,amask);
+	for(int j=0; j <bitmap.rows;j++) 
+	{
+		for(int i=0; i < bitmap.width; i++)
+		{
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 0] = 255;
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 1] = 255;
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 2] = 255;
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 3] = bitmap.buffer[i + bitmap.width * j];
+		}
+	}
+	unsigned int x1, y1;
+	textureAtlas.InsertSurface(surface, x1, y1);
+	SDL_FreeSurface(surface);
 
 	glBindTexture( GL_TEXTURE_2D, textures[ch]);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);

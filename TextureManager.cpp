@@ -26,6 +26,10 @@ SDL_Surface *TextureManager::LoadSurfaceFromFile(std::string fileName)
 
 void TextureManager::Cleanup()
 {
+	for (auto i =  textureList.begin(); i != textureList.end(); ++i)
+	{
+		delete (*i).second;
+	}
 	textureList.clear();
 	for (auto i = imageList.begin(); i != imageList.end(); i++)
 	{
@@ -49,7 +53,7 @@ unsigned int TextureManager::LoadImageFromSurface( SDL_Surface *surface )
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
 
 	imageList[tex].width = surface->w;
@@ -108,6 +112,7 @@ bool TextureManager::RemoveTexture(std::string name)
 			imageList.erase(t);
 		}
 	}
+	delete (*f).second;
 	textureList.erase(f);
 	return true;
 }
@@ -121,4 +126,16 @@ Texture * TextureManager::GetTexture( std::string name )
 		return nullptr;
 	}
 	return (*f).second;
+}
+
+bool TextureManager::LoadTextureFromFile( std::string fileName, std::string name )
+{
+	SDL_Surface *s = LoadSurfaceFromFile(fileName);
+	if(!s) return false;
+	SDL_FreeSurface(s);
+
+	Texture * t = GetTextureFromImage(LoadImageFromSurface(s), 0, 0, s->w, s->h);
+	if(!t) return false;
+
+	return AddTexture(t, name);
 }

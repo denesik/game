@@ -13,10 +13,12 @@
 #include <string>
 
 #include "GameMath.h"
+#include "TextureAtlas.h"
 
 class Font
 {
 protected:
+	TextureAtlas textureAtlas;
 
 	static const short GLYPHCOUNT = 256;
 

@@ -1,6 +1,8 @@
 #include "MyGame.h"
 #include "GUIButton.h"
 #include "GUIFont.h"
+#include "TextureAtlas.h"
+#include <SDL_Image.h>
 
 
 MyGame::MyGame(void)
@@ -36,17 +38,26 @@ bool MyGame::Initialize()
 	g->SetFont("Font2");
 
 	Game::Initialize();
-	
+	/*
+	TextureAtlas *t = new TextureAtlas();
+	t->Create(32,32);
+	unsigned int x,y;
+	bool b;
+	b = t->InsertSurface(IMG_Load("a1.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a1.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	b = t->InsertSurface(IMG_Load("a2.png"), x, y);
+	IMG_SavePNG(t->GetAtlas(), "a12.png");
+	*/
 
-	textureManager->AddTexture(
-		textureManager->GetTextureFromImage(
-			textureManager->LoadImageFromSurface(
-				textureManager->LoadSurfaceFromFile("gui2.png")
-				),
-			0,0,15,15
-		),"gui"
-	);
-
+	textureManager->LoadTextureFromFile("gui2.png", "gui");
+	textureManager->LoadTextureFromFile("glyph.png", "glyph");
 	return true;
 }
 
@@ -60,6 +71,7 @@ void MyGame::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();	
+//	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);			
 
 	Game::Draw();

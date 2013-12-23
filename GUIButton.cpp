@@ -15,8 +15,7 @@ GUIButton::~GUIButton(void)
 
 void GUIButton::Draw(Render *render)
 {
-	glColor3ub(0,0xff,0);	
-
+	glColor3ub(0,0xff,0);		
 	font->print(150,300,"1234567890\nМама мыла раму.");
 
 	glLineWidth(2);
@@ -27,8 +26,8 @@ void GUIButton::Draw(Render *render)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
 
-	glBindTexture(GL_TEXTURE_2D, render->GetTextureManager()->GetTexture("gui")->textureId);
+	glBindTexture(GL_TEXTURE_2D, render->GetTextureManager()->GetTexture("glyph")->textureId);
 
-	glColor4ub(0xb0,0xb0,0xb0,0xff);	
-	render->DrawQuad2D(300,300,316,316);
+	glColor3ub(0xff,0,0);	
+	render->DrawQuad2D(300,300,308,308);
 }

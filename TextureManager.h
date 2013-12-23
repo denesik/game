@@ -39,6 +39,9 @@ public:
 	bool AddTexture(Texture *texture, std::string name);
 	bool RemoveTexture(std::string name);			// Дописать проверки
 	Texture *GetTexture(std::string name);
+
+	bool LoadTextureFromFile(std::string fileName, std::string name);
+
 };
 
 #endif // TextureManager_h__
