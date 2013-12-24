@@ -77,10 +77,19 @@ Texture * TextureManager::GetTextureFromImage( unsigned int image, unsigned int 
 	}
 	Texture *texture = new Texture;
 	texture->textureId = image;
-	texture->u1 = float(x1) / float(imageList[image].width);
-	texture->v1 = float(y1) / float(imageList[image].height);
-	texture->u2 = float(x2) / float(imageList[image].width);
-	texture->v2 = float(y2) / float(imageList[image].height);
+	texture->u1 = float(x1) / float(imageList[image].width - 1);
+	texture->v1 = float(y1) / float(imageList[image].height - 1);
+	texture->u2 = float(x2) / float(imageList[image].width - 1);
+	texture->v2 = float(y2) / float(imageList[image].height - 1);
+	if(x2 > x1)
+		texture->width = x2 - x1 + 1;
+	else
+		texture->width = x1 - x2 + 1;
+	if(y2 > y1)
+		texture->height = y2 - y1 + 1;
+	else
+		texture->height = y1 - y2 + 1;
+
 	imageList[image].refCount++;
 	return texture;
 }

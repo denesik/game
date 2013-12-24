@@ -59,10 +59,12 @@ bool Render::InitGL()
 
 	glShadeModel(GL_SMOOTH);							
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				
-	glClearDepth(1.0f);									
-	glEnable(GL_DEPTH_TEST);							
-	glDepthFunc(GL_LEQUAL);								
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+//	glClearDepth(1.0f);									
+//	glEnable(GL_DEPTH_TEST);							
+//	glDepthFunc(GL_LEQUAL);								
+//	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	glEnable(GL_TEXTURE_2D);
 
 	return true;
 }
@@ -121,7 +123,8 @@ void Render::PushProjectionMatrix()
 	gluOrtho2D(viewport[0],viewport[2],viewport[1],viewport[3]);
 	glPopAttrib();
 	
-	glTranslatef(0.5, 0.5, 0.0);
+	glEnable(GL_TEXTURE_2D);
+	//glTranslatef(0.5, 0.5, 0.0);
 }
 
 // Восстановить координаты матрицы проекции.
@@ -164,30 +167,34 @@ TextureManager * Render::GetTextureManager()
 void Render::DrawQuad2D( Rect rectangle )
 {
 	glBegin(GL_TRIANGLE_STRIP);
-		glTexCoord2d(0,1); glVertex2f(rectangle.x,rectangle.y);
-		glTexCoord2d(0,0); glVertex2f(rectangle.x,rectangle.y + rectangle.h);
-		glTexCoord2d(1,1); glVertex2f(rectangle.x + rectangle.w,rectangle.y);
-		glTexCoord2d(1,0); glVertex2f(rectangle.x + rectangle.w,rectangle.y + rectangle.h);
+		glTexCoord2d(0,0); glVertex2f(rectangle.x,rectangle.y);
+		glTexCoord2d(0,1); glVertex2f(rectangle.x,rectangle.y + rectangle.h);
+		glTexCoord2d(1,0); glVertex2f(rectangle.x + rectangle.w,rectangle.y);
+		glTexCoord2d(1,1); glVertex2f(rectangle.x + rectangle.w,rectangle.y + rectangle.h);
 	glEnd();
 }
 
 void Render::DrawQuad2D(int x1, int y1, int x2, int y2)
 {
 	glBegin(GL_TRIANGLE_STRIP);
-		glTexCoord2d(0,1); glVertex2f(x1,y1);
-		glTexCoord2d(0,0); glVertex2f(x1,y2);
-		glTexCoord2d(1,1); glVertex2f(x2,y1);
-		glTexCoord2d(1,0); glVertex2f(x2,y2);
+		glTexCoord2d(0,0); glVertex2f(x1,y1);
+		glTexCoord2d(0,1); glVertex2f(x1,y2);
+		glTexCoord2d(1,0); glVertex2f(x2,y1);
+		glTexCoord2d(1,1); glVertex2f(x2,y2);
 	glEnd();
 }
 
 void Render::DrawQuad2D(Rect rectangle, Texture tex)
 {
-	glBindTexture(GL_TEXTURE_2D, tex.textureId);
 	glBegin(GL_TRIANGLE_STRIP);
-		glTexCoord2d(tex.u1,tex.v2); glVertex2f(rectangle.x,rectangle.y);
-		glTexCoord2d(tex.u1,tex.v1); glVertex2f(rectangle.x,rectangle.y + rectangle.h);
-		glTexCoord2d(tex.u2,tex.v2); glVertex2f(rectangle.x + rectangle.w,rectangle.y);
-		glTexCoord2d(tex.u2,tex.v1); glVertex2f(rectangle.x + rectangle.w,rectangle.y + rectangle.h);
+		glTexCoord2d(tex.u1,tex.v1); glVertex2f(rectangle.x,rectangle.y);
+		glTexCoord2d(tex.u1,tex.v2); glVertex2f(rectangle.x,rectangle.y + rectangle.h);
+		glTexCoord2d(tex.u2,tex.v1); glVertex2f(rectangle.x + rectangle.w,rectangle.y);
+		glTexCoord2d(tex.u2,tex.v2); glVertex2f(rectangle.x + rectangle.w,rectangle.y + rectangle.h);
 	glEnd();
+}
+
+void Render::BindTexture( unsigned int textureId )
+{
+	glBindTexture(GL_TEXTURE_2D, textureId);
 }

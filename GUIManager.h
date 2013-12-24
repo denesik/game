@@ -6,11 +6,13 @@
 #include "Font.h"
 #include "GUIFontManager.h"
 
+
 class GUIManager : public GameComponent
 {
 protected:
 	std::list<GUIObject *const> guiObjectLists;
 	GUIFontManager *fontManager;
+	TextureManager *textureManager;
 
 	int width;
 	int height;
@@ -23,11 +25,15 @@ public:
 
 	virtual bool Initialize();
 	virtual void Update(){};
+	virtual void LoadContent();
 	virtual void Draw(Render *render);
 	virtual void Cleanup(){};
 
 	virtual int RemoveGUIObject(GUIObject *guiObject);
 	virtual int AddGUIObject(GUIObject *guiObject);
+
+	virtual void SetTextureManager(TextureManager *textureManager);
+	virtual TextureManager *GetTextureManager();
 
 	virtual void SetFontManager(GUIFontManager *_fontManager);
 	virtual GUIFontManager *GetFontManager();

@@ -19,6 +19,8 @@ bool GUIManager::Initialize()
 	fontManager->GenerateFonts(width, height);
 	fontDefault = fontManager->Get("FontDefault");
 
+
+
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
 		if((*i)->font == nullptr)
@@ -30,6 +32,17 @@ bool GUIManager::Initialize()
 	
 	return true;
 }
+
+void GUIManager::LoadContent()
+{
+
+	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
+	{
+		(*i)->LoadContent();
+	}
+}
+
+
 /*
 int GUIManager::Update()
 {
@@ -86,6 +99,10 @@ void GUIManager::OnMouseButtonClick( int button, int x, int y )
 void GUIManager::Resize(int width, int height)
 {
 	fontManager->GenerateFonts(width, height);
+	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
+	{
+		(*i)->Resize(width, height);
+	}
 }
 
 void GUIManager::SetFontManager( GUIFontManager *_fontManager )
@@ -96,4 +113,14 @@ void GUIManager::SetFontManager( GUIFontManager *_fontManager )
 GUIFontManager *GUIManager::GetFontManager()
 {
 	return fontManager;
+}
+
+void GUIManager::SetTextureManager( TextureManager *_textureManager )
+{
+	textureManager = _textureManager;
+}
+
+TextureManager * GUIManager::GetTextureManager()
+{
+	return textureManager;
 }

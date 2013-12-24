@@ -7,6 +7,19 @@
 
 class GUIManager;
 
+struct WindowTexture
+{
+	Texture *borderTop;
+	Texture *borderBot;
+	Texture *borderLeft;
+	Texture *borderRight;
+	Texture *borderTopLeft;
+	Texture *borderTopRight;
+	Texture *borderBotRight;
+	Texture *borderBotLeft;
+	Texture *body;
+};
+
 class GUIObject
 {
 protected:
@@ -15,10 +28,12 @@ protected:
 	std::string fontName;
 	Font *font;
 
+	Rect boundBoxOriginal;
+	Rect boundBox;
+	WindowTexture windowTexture;
+
 	virtual void SetFont(Font *font);
 	virtual Font *GetFont();
-
-	Rect boundBox;
 
 public:
 	bool isVisible;
@@ -34,8 +49,11 @@ public:
 	virtual void OnRelease(){};
 	virtual void OnMove(){};
 
+	virtual void Resize(int width, int height);
+//	virtual void Initialize(){};
+	virtual void LoadContent();
 	virtual void Update(){};
-	virtual void Draw(Render *render){};
+	virtual void Draw(Render *render);
 
 	virtual void SetFont(std::string fontName);
 };

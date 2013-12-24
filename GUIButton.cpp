@@ -1,11 +1,12 @@
 #include "GUIButton.h"
+#include "GUIManager.h"
 
 GUIButton::GUIButton(int x, int y, int w, int h)
 {
-	boundBox.x = x;
-	boundBox.y = y;
-	boundBox.w = w;
-	boundBox.h = h;
+	boundBoxOriginal.x = x;
+	boundBoxOriginal.y = y;
+	boundBoxOriginal.w = w;
+	boundBoxOriginal.h = h;
 }
 
 
@@ -15,10 +16,11 @@ GUIButton::~GUIButton(void)
 
 void GUIButton::Draw(Render *render)
 {
-	glColor3ub(0,0,0xff);	
-	font->print(150,300,"1234567890\nМама мыла раму.");
+	GUIObject::Draw(render);
+}
 
-	glLineWidth(2);
-	render->DrawRectangle(boundBox);
+void GUIButton::LoadContent()
+{
 
+	GUIObject::LoadContent();
 }

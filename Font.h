@@ -47,7 +47,6 @@ public:
 	virtual bool Generate();
 	virtual void Cleanup();
 
-//	void print(float x, float y, const char *fmt, ...);
 	virtual void print(float x, float y, std::string str);
 
 	virtual int GetSize();

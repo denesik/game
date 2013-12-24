@@ -3,12 +3,16 @@
 
 #include "guiobject.h"
 
+
 class GUIButton : public GUIObject
 {
+protected:
+
 public:
 	GUIButton(int x, int y, int w, int h);
 	~GUIButton(void);
 
+	virtual void LoadContent();
 	virtual void Draw(Render *render);
 };
 

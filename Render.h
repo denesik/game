@@ -42,6 +42,7 @@ public:
 	void DrawQuad2D(Rect rectangle);
 	void DrawQuad2D(int x1, int y1, int x2, int y2);
 	void DrawQuad2D(Rect rectangle, Texture tex);
+	void BindTexture(unsigned int textureId);
 };
 
 #endif // Render_h__

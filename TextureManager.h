@@ -12,6 +12,8 @@ struct Texture
 	double v1;
 	double u2;
 	double v2;
+	unsigned int width;
+	unsigned int height;
 };
 
 class TextureManager
