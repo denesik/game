@@ -1,13 +1,15 @@
 #include "GUIButton.h"
 #include "GUIManager.h"
 
-GUIButton::GUIButton(int x, int y, int w, int h)
+GUIButton::GUIButton(int x, int y, int w, int h, std::string _text)
 {
+	text = _text;
 	boundBoxOriginal.x = x;
 	boundBoxOriginal.y = y;
 	boundBoxOriginal.w = w;
 	boundBoxOriginal.h = h;
-	text = "";
+	textX = 0;
+	textY = 0;
 }
 
 
@@ -21,21 +23,36 @@ void GUIButton::Draw(Render *render)
 
 	glColor3ub(0,0,0);	
 
-	Rect bb = font->GetBoundBox(text);
+	if(text.length() > 0)
+		font->Print(textX,textY,text);
 
-	int fontX = boundBox.x + (boundBox.w - bb.w) / 2;
-	int fontY = boundBox.y - bb.y + (boundBox.h - bb.h) / 2;
-	font->Print(fontX,fontY,text);
-
-/*	bb.x = fontX;
-	bb.y += fontY;
+/*
 	glDisable(GL_BLEND);
-	render->DrawRectangle(bb);
+	render->DrawRectangle(boundBox);
 	*/
 }
 
 void GUIButton::LoadContent()
 {
-
 	GUIObject::LoadContent();
+	ResizeText();
+}
+
+void GUIButton::SetText( std::string _text )
+{
+	text = _text;
+	ResizeText();
+}
+
+void GUIButton::Resize( int width, int height )
+{
+	GUIObject::Resize(width, height);
+	ResizeText();
+}
+
+void GUIButton::ResizeText()
+{
+	Rect bb = font->GetBoundBox(text);
+	textX = boundBox.x + (boundBox.w - bb.w) / 2;
+	textY = boundBox.y - bb.y + (boundBox.h - bb.h) / 2;
 }

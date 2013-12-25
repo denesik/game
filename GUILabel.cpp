@@ -10,6 +10,11 @@ GUILabel::GUILabel( int x, int y, std::string _text )
 	boundBoxOriginal.y = y;
 }
 
+GUILabel::GUILabel()
+{
+
+}
+
 
 GUILabel::~GUILabel(void)
 {

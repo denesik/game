@@ -73,6 +73,9 @@
       <Filter>Рендер</Filter>
     </ClInclude>
     <ClInclude Include="GUILabel.h">
+      <Filter>Графический интерфейс</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIFPS.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>
@@ -126,6 +129,9 @@
       <Filter>Рендер</Filter>
     </ClCompile>
     <ClCompile Include="GUILabel.cpp">
+      <Filter>Графический интерфейс</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIFPS.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

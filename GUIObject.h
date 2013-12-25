@@ -45,9 +45,8 @@ public:
 
 	friend GUIManager;
 
-	virtual void OnClick(){};
-	virtual void OnRelease(){};
-	virtual void OnMove(){};
+	virtual void OnMouseMove(int x, int y){};
+	virtual void OnMouseClick(int button, int x, int y){};
 
 	virtual void Resize(int width, int height);
 	virtual void LoadContent();

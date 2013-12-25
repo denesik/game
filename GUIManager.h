@@ -24,7 +24,7 @@ public:
 	~GUIManager(void);
 
 	virtual bool Initialize();
-	virtual void Update(){};
+	virtual void Update();
 	virtual void LoadContent();
 	virtual void Draw(Render *render);
 	virtual void Cleanup(){};
@@ -44,6 +44,8 @@ public:
 	virtual void OnMouseButtonUp(int button, int x, int y){};
 	virtual void OnMouseButtonClick(int button, int x, int y);
 
+private:
+	bool HittingArea(int x, int y, Rect area);
 };
 
 

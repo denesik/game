@@ -41,16 +41,15 @@ void GUIManager::LoadContent()
 }
 
 
-/*
-int GUIManager::Update()
+
+void GUIManager::Update()
 {
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
 		(*i)->Update();
 	}
-	return 0;
 }
-
+/*
 int GUIManager::Cleanup()
 {
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
@@ -65,7 +64,7 @@ void GUIManager::Draw(Render *render)
 {
 	render->PushProjectionMatrix();
 
-	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
+	for (auto i = guiObjectLists.begin(); i != guiObjectLists.end(); i++)
 	{
 		(*i)->Draw(render);
 	}
@@ -86,16 +85,10 @@ int GUIManager::RemoveGUIObject(GUIObject *guiObject)
 	return 0;
 }
 
-void GUIManager::OnMouseButtonClick( int button, int x, int y )
+void GUIManager::Resize(int _width, int _height)
 {
-	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
-	{
-		(*i)->OnClick();
-	}
-}
-
-void GUIManager::Resize(int width, int height)
-{
+	width = _width;
+	height = _height;
 	fontManager->GenerateFonts(width, height);
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
@@ -122,3 +115,28 @@ TextureManager * GUIManager::GetTextureManager()
 {
 	return textureManager;
 }
+
+void GUIManager::OnMouseButtonClick( int button, int x, int y )
+{
+	y = height - y;
+	for (auto i = guiObjectLists.rbegin(); i != guiObjectLists.rend(); i++)
+	{
+		GUIObject *guiObject = *i;
+
+		if( HittingArea(x, y, guiObject->boundBox) )
+		{
+			guiObjectLists.remove(guiObject);
+			guiObjectLists.push_back(guiObject);
+
+			guiObject->OnMouseClick(button, x, y);
+			return;
+		}
+		// Список перемешался цикл нужно завершить.
+	}
+}
+
+bool GUIManager::HittingArea(int x, int y, Rect area)
+{
+	return (x >= area.x && x <= area.x + area.w && y >= area.y && y <= area.y + area.h);
+}
+

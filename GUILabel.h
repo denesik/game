@@ -8,11 +8,10 @@ class GUILabel : public GUIObject
 protected:
 	int textX;
 	int textY;
-
-public:
 	std::string text;
 
 public:
+	GUILabel();
 	GUILabel(int x, int y, std::string text);
 	~GUILabel(void);
 

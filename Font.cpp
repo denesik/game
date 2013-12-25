@@ -200,6 +200,17 @@ Rect &Font::GetBoundBox(string str)
 	{
 		unsigned char glyph = (unsigned char)(str[i]);
 
+		if(glyph == '\n')
+		{
+			if(rect.w < stringLenght)
+				rect.w = stringLenght;
+
+			rect.h += fsize;
+			stringLenght = 0;
+			stringOffsetDown = 0;
+			break;
+		}
+
 		if(glyph == ' ')
 			stringLenght += glyphs['8'].width;
 		else
@@ -209,16 +220,6 @@ Rect &Font::GetBoundBox(string str)
 		{
 			if(stringOffsetUp < glyphs[glyph].height)
 				stringOffsetUp = glyphs[glyph].height;
-		}
-
-		if(glyph == '\n')
-		{
-			if(rect.w < stringLenght)
-				rect.w = stringLenght;
-
-			rect.h += fsize;
-			stringLenght = 0;
-			stringOffsetDown = 0;
 		}
 
 		if(stringOffsetDown > glyphs[glyph].offsetDown)
