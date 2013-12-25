@@ -124,7 +124,6 @@ void Render::PushProjectionMatrix()
 	glPopAttrib();
 	
 	glEnable(GL_TEXTURE_2D);
-	//glTranslatef(0.5, 0.5, 0.0);
 }
 
 // Восстановить координаты матрицы проекции.

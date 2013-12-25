@@ -6,7 +6,8 @@
 
 class GUIButton : public GUIObject
 {
-protected:
+public:
+	std::string text;
 
 public:
 	GUIButton(int x, int y, int w, int h);

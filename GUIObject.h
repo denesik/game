@@ -50,7 +50,6 @@ public:
 	virtual void OnMove(){};
 
 	virtual void Resize(int width, int height);
-//	virtual void Initialize(){};
 	virtual void LoadContent();
 	virtual void Update(){};
 	virtual void Draw(Render *render);

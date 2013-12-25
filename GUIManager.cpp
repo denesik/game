@@ -19,8 +19,6 @@ bool GUIManager::Initialize()
 	fontManager->GenerateFonts(width, height);
 	fontDefault = fontManager->Get("FontDefault");
 
-
-
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
 		if((*i)->font == nullptr)

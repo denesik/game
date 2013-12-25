@@ -37,12 +37,7 @@ void GUIObject::SetFont( std::string _fontName )
 
 void GUIObject::Draw( Render *render )
 {
-	glColor3ub(0xef,0xef,0xef);	
-	//	font->print(150,300,"1234567890\nМама мыла раму.");
-
-	glLineWidth(2);
-	//	render->DrawRectangle(boundBox);
-
+	glColor3ub(0xef,0xef,0xef);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
 
@@ -102,8 +97,6 @@ void GUIObject::Draw( Render *render )
 	r.w = boundBox.w - windowTexture.borderLeft->width - windowTexture.borderRight->width;
 	render->DrawQuad2D(r, *windowTexture.body);
 
-	glColor3ub(0,0,0xff);	
-	//render->DrawRectangle(boundBox);
 }
 
 void GUIObject::LoadContent()
@@ -123,6 +116,7 @@ void GUIObject::LoadContent()
 	windowTexture.borderBotRight	= textureManager->GetTexture("GUI_borderBotRight");
 	windowTexture.borderBotLeft		= textureManager->GetTexture("GUI_borderBotLeft");
 	windowTexture.body				= textureManager->GetTexture("GUI_body");
+
 }
 
 void GUIObject::Resize(int width, int height)

@@ -72,6 +72,9 @@
     <ClInclude Include="TextureAtlas.h">
       <Filter>Рендер</Filter>
     </ClInclude>
+    <ClInclude Include="GUILabel.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="TextureAtlas.cpp">
       <Filter>Рендер</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILabel.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -47,11 +47,11 @@ public:
 	virtual bool Generate();
 	virtual void Cleanup();
 
-	virtual void print(float x, float y, std::string str);
+	virtual void Print(float x, float y, std::string str);
 
 	virtual int GetSize();
 
-	virtual Rect &GetRect(std::string str);
+	virtual Rect &GetBoundBox(std::string str);
 
 private:
 	virtual void MakeFontAtlas ( FT_Face face, unsigned char ch);

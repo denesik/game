@@ -107,8 +107,8 @@ void Font::MakeFontAtlas ( FT_Face face, unsigned char ch)
 	SDL_FreeSurface(surface);
 }
 
-void Font::print(float x, float y, string str)  
-{				
+void Font::Print(float x, float y, string str)  
+{			
 	// Сделаем высоту немного больше, что бы оставить место между линиями.
 	float fsize=this->size/.63f;		
 
@@ -140,6 +140,8 @@ void Font::print(float x, float y, string str)
 
 	float modelview_matrix[16];	
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview_matrix);
+
+	glTranslatef(0.5, 0.5, 0.0);
 
 	for(int i=0;i<lines.size();i++) 
 	{
@@ -177,21 +179,60 @@ void Font::print(float x, float y, string str)
 
 		glPopMatrix();
 	}
-
+	glTranslatef(-0.5, -0.5, 0.0);
 	glPopAttrib();		
 }
 
-Rect &Font::GetRect(string str)
+Rect &Font::GetBoundBox(string str)
 {
-	float fsize=this->size/.63f;
+	float fsize=size/.63f;
 
 	Rect rect;
 	rect.w = 0;
 	rect.h = 0;
 	rect.x = 0;
-	rect.y = 0;
+	rect.y = 0;	
 
+	int stringLenght = 0;
+	int stringOffsetUp = 0;
+	int stringOffsetDown = 0;
+	for(int i=0; i < str.length(); i++) 
+	{
+		unsigned char glyph = (unsigned char)(str[i]);
 
+		if(glyph == ' ')
+			stringLenght += glyphs['8'].width;
+		else
+			stringLenght += glyphs[glyph].width;
+
+		if(rect.h == 0)
+		{
+			if(stringOffsetUp < glyphs[glyph].height)
+				stringOffsetUp = glyphs[glyph].height;
+		}
+
+		if(glyph == '\n')
+		{
+			if(rect.w < stringLenght)
+				rect.w = stringLenght;
+
+			rect.h += fsize;
+			stringLenght = 0;
+			stringOffsetDown = 0;
+		}
+
+		if(stringOffsetDown > glyphs[glyph].offsetDown)
+			stringOffsetDown = glyphs[glyph].offsetDown;
+	}
+	if(rect.w < stringLenght)
+		rect.w = stringLenght;
+	rect.h -= stringOffsetDown;
+	rect.y = -rect.h;
+	rect.h += stringOffsetUp;
+	rect.w++;
+	rect.h++;
+	rect.x--;
+	rect.y--;
 	return rect;
 }
 
