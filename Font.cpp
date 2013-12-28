@@ -208,7 +208,7 @@ Rect &Font::GetBoundBox(string str)
 			rect.h += fsize;
 			stringLenght = 0;
 			stringOffsetDown = 0;
-			break;
+			continue;
 		}
 
 		if(glyph == ' ')

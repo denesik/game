@@ -56,3 +56,11 @@ void GUIButton::ResizeText()
 	textX = boundBox.x + (boundBox.w - bb.w) / 2;
 	textY = boundBox.y - bb.y + (boundBox.h - bb.h) / 2;
 }
+
+void GUIButton::OnMouseClick( int button, int x, int y )
+{
+	if(MouseClickEvent)
+	{
+		MouseClickEvent(x, y);
+	}
+}

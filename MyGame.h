@@ -11,6 +11,9 @@ class MyGame : public Game
 private:
 	GUIManager *guiManager;
 	GUIFontManager *fontManager;
+	GUIObject *fps;
+
+	void test(int x1, int x2);
 
 public:
 	MyGame(void);

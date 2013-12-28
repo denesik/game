@@ -5,6 +5,7 @@
 #include <SDL_Image.h>
 #include "GUILabel.h"
 #include "GUIFPS.h"
+#include "Logger.h"
 
 
 MyGame::MyGame(void)
@@ -14,7 +15,6 @@ MyGame::MyGame(void)
 	width = 800;
 	height = 600;
 	fullscreen = false;
-
 }
 
 
@@ -23,10 +23,18 @@ MyGame::~MyGame(void)
 
 }
 
+void MyGame::test(int x1, int x2)
+{
+	MessageBox(NULL, L"test", L"test", NULL); 
+}
+
 bool MyGame::Initialize()
 {
 	fontManager = new GUIFontManager();
 	fontManager->Add("FontDefault", new GUIFont("fonts/ACADEITA.TTF",12));
+	fontManager->Add("ACADEROM", new GUIFont("fonts/ACADEROM.TTF",10));
+	fontManager->Add("BIRCH_C", new GUIFont("fonts/BIRCH_C.TTF",12));
+	fontManager->Add("fps", new GUIFont("fonts/FIEST24.TTF",9));
 
 	guiManager = new GUIManager(width, height);
 	AddGameComponent(guiManager);
@@ -39,15 +47,23 @@ bool MyGame::Initialize()
 	guiManager->AddGUIObject(g1);
 	guiManager->AddGUIObject(g2);
 
-	GUILabel *gl1 = new GUILabel(500,250,"new test text\nnew line!");
+//	GUILabel *gl1 = new GUILabel(500,250,"Текст на русском\nnew line!");
+	GUILabel *gl1 = new GUILabel(500,250,"Текст на русском\nМама мыла раму!");
 	guiManager->AddGUIObject(gl1);
 
-	guiManager->AddGUIObject(new GUIFPS(5, 580));
+	fps = new GUIFPS(5, 580);
+	guiManager->AddGUIObject(fps);
+
+	g1->MouseClickEvent.bind(this, &MyGame::test);
 
 	Game::Initialize();
 
-	//textureManager->LoadTextureFromFile("gui2.png", "gui");
+	return true;
+}
 
+void MyGame::LoadContent()
+{
+	fps->SetFont("fps");
 	SDL_Surface *guiTexture = textureManager->LoadSurfaceFromFile("gui4.png");
 	unsigned int tertureId = textureManager->LoadImageFromSurface(guiTexture, true);
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 15, 9, 16, 0), "GUI_borderTop");
@@ -61,8 +77,7 @@ bool MyGame::Initialize()
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 0, 31, 9, 22), "GUI_borderBotLeft");
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 15, 15, 16, 16), "GUI_body");
 
-
-	return true;
+	Game::LoadContent();
 }
 
 void MyGame::Update()
@@ -85,12 +100,6 @@ void MyGame::Cleanup()
 {
 
 	Game::Cleanup();
-}
-
-void MyGame::LoadContent()
-{
-
-	Game::LoadContent();
 }
 
 void MyGame::UnLoadContent()

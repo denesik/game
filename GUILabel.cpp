@@ -26,8 +26,8 @@ void GUILabel::Draw( Render *render )
 
 	font->Print(textX,textY,text);
 
-	glDisable(GL_BLEND);
-	render->DrawRectangle(boundBox);
+/*	glDisable(GL_BLEND);
+	render->DrawRectangle(boundBox);*/
 }
 
 void GUILabel::Resize( int width, int height )

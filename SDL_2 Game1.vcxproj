@@ -24,6 +24,7 @@
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIObject.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="TextureAtlas.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIObject.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -82,7 +84,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2_image-2.0.0\include;e:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\include\;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\fastDelegate;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2_image-2.0.0\include;e:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\include\;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2_image-2.0.0\lib\x86;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\freetype-2.5.2\objs\win32\vc2010;E:\book\Visual Studio projects\Projects\SDL_2 Game1\libs\SDL2-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
