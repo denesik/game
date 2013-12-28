@@ -4,7 +4,7 @@
 GUIObject::GUIObject()
 {
 	font = nullptr;
-	fontName = "FontDefault";
+	fontName = "";
 
 	bool isVisible = true;
 	bool isActive = true;
@@ -33,6 +33,31 @@ void GUIObject::SetFont( std::string _fontName )
 		font = f;
 		fontName = _fontName;
 	}
+	else
+	{
+		font =  guiManager->GetFontManager()->GetDefaultFont();
+		fontName = guiManager->GetFontManager()->GetNameDefaultFont();
+	}
+}
+
+void GUIObject::LoadContent()
+{
+	boundBox.x = boundBoxOriginal.x;
+	boundBox.y = boundBoxOriginal.y;
+	boundBox.w = boundBoxOriginal.w;
+	boundBox.h = boundBoxOriginal.h;
+
+	TextureManager *textureManager = guiManager->GetTextureManager();
+	windowTexture.borderTop			= textureManager->GetTexture("GUI_borderTop");
+	windowTexture.borderBot			= textureManager->GetTexture("GUI_borderBot");
+	windowTexture.borderLeft		= textureManager->GetTexture("GUI_borderLeft");
+	windowTexture.borderRight		= textureManager->GetTexture("GUI_borderRight");
+	windowTexture.borderTopLeft		= textureManager->GetTexture("GUI_borderTopLeft");
+	windowTexture.borderTopRight	= textureManager->GetTexture("GUI_borderTopRight");
+	windowTexture.borderBotRight	= textureManager->GetTexture("GUI_borderBotRight");
+	windowTexture.borderBotLeft		= textureManager->GetTexture("GUI_borderBotLeft");
+	windowTexture.body				= textureManager->GetTexture("GUI_body");
+
 }
 
 void GUIObject::Draw( Render *render )
@@ -96,26 +121,6 @@ void GUIObject::Draw( Render *render )
 	r.h = boundBox.h - windowTexture.borderBot->height - windowTexture.borderTop->height;
 	r.w = boundBox.w - windowTexture.borderLeft->width - windowTexture.borderRight->width;
 	render->DrawQuad2D(r, *windowTexture.body);
-
-}
-
-void GUIObject::LoadContent()
-{
-	boundBox.x = boundBoxOriginal.x;
-	boundBox.y = boundBoxOriginal.y;
-	boundBox.w = boundBoxOriginal.w;
-	boundBox.h = boundBoxOriginal.h;
-
-	TextureManager *textureManager = guiManager->GetTextureManager();
-	windowTexture.borderTop			= textureManager->GetTexture("GUI_borderTop");
-	windowTexture.borderBot			= textureManager->GetTexture("GUI_borderBot");
-	windowTexture.borderLeft		= textureManager->GetTexture("GUI_borderLeft");
-	windowTexture.borderRight		= textureManager->GetTexture("GUI_borderRight");
-	windowTexture.borderTopLeft		= textureManager->GetTexture("GUI_borderTopLeft");
-	windowTexture.borderTopRight	= textureManager->GetTexture("GUI_borderTopRight");
-	windowTexture.borderBotRight	= textureManager->GetTexture("GUI_borderBotRight");
-	windowTexture.borderBotLeft		= textureManager->GetTexture("GUI_borderBotLeft");
-	windowTexture.body				= textureManager->GetTexture("GUI_body");
 
 }
 

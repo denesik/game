@@ -1,1 +1,1 @@
-ERROR:    раш
+WARNING: GUIFontManager. Ўрифт fps уже существует.

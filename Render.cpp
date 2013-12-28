@@ -2,6 +2,7 @@
 #include <SDL_opengl.h>
 #include <GL\glu.h>
 #include <iostream>
+#include "Logger.h"
 
 Render::Render()
 {
@@ -22,12 +23,14 @@ bool Render::Initialize(const char* _title, int _width, int _height, bool _fullS
 	fullScreen = _fullScreen;
 
 	if(!CreateGameWindow())
+	{
 		return false;
+	}
 
 	render = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (render == nullptr)
 	{
-		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+		LOG(LOG_ERROR, "Render. SDL. Ошибка создания рендера.");
 		return false;
 	}
 
@@ -86,7 +89,7 @@ bool Render::CreateGameWindow()
 
 	if (window == nullptr)
 	{
-		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+		LOG(LOG_ERROR, "Render. SDL. Окно не создано");
 		return false;
 	}
 

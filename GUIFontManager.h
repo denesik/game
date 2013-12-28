@@ -9,11 +9,15 @@ class GUIFontManager
 {
 protected:
 	std::map<std::string, GUIFont*> fontsMap;
-
+	std::string NameDefaultFont;
 
 public:
 	GUIFontManager(void);
 	~GUIFontManager(void);
+
+	void SetDefaultFont(GUIFont *font);
+	GUIFont *GetDefaultFont();
+	std::string GetNameDefaultFont();
 
 	bool Add(std::string fontName, GUIFont *font);
 	int Remove(std::string fontName);

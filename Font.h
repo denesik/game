@@ -36,11 +36,11 @@ protected:
 	FontTexture glyphs[GLYPHCOUNT];
 
 	float size;
-	const char *filename;
+	std::string filename;
 
 public:
 	Font(){};
-	Font(const char *filename, unsigned int size);
+	Font(std::string filename, unsigned int size);
 	~Font(void);
 
 	virtual void SetSize(unsigned int size);

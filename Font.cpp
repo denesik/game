@@ -6,7 +6,7 @@
 #include "Logger.h"
 using namespace std;
 
-Font::Font(const char *_filename, unsigned int _size)
+Font::Font(std::string _filename, unsigned int _size)
 {
 	filename = _filename;
 	size = float(_size);
@@ -28,9 +28,9 @@ bool Font::Generate()
 	}
 
 	FT_Face face;
-	if (FT_New_Face( library, filename, 0, &face )) 
+	if (FT_New_Face( library, filename.c_str(), 0, &face )) 
 	{
-		LOG(LOG_ERROR, "FreeType. Файл шрифтов не загружен.");
+		LOG(LOG_WARNING, "FreeType. Файл шрифтов " + filename + " не загружен.");
 		return false;
 	}
 	// По некоторым причинам FreeType измеряет размер шрифта в терминах 1/64 пикселя.

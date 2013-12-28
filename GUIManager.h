@@ -18,6 +18,7 @@ protected:
 	int height;
 
 	GUIFont *fontDefault;
+	std::string NameDefaultFont;
 
 public:
 	GUIManager(int width, int height);

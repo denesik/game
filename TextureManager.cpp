@@ -1,6 +1,7 @@
 #include "TextureManager.h"
 #include <SDL_Image.h>
 #include <SDL_opengl.h>
+#include "Logger.h"
 
 
 TextureManager::TextureManager(void)
@@ -17,7 +18,7 @@ SDL_Surface *TextureManager::LoadSurfaceFromFile(std::string fileName)
 	SDL_Surface *surface = IMG_Load(fileName.c_str());
 	if(surface == nullptr)
 	{
-		throw std::runtime_error("IMG_Load failed (there is probably a problem with your font file)");
+		LOG(LOG_WARNING, "TextureManager. IMG_Load. Файл " + fileName + " не загружен.");
 		return nullptr;
 	}
 	return surface;
@@ -39,10 +40,9 @@ void TextureManager::Cleanup()
 
 unsigned int TextureManager::LoadImageFromSurface( SDL_Surface *surface, bool smoothing)
 {
-
 	if(surface == nullptr)
 	{
-		throw std::runtime_error("LoadImageFromSurface failed");
+		LOG(LOG_WARNING, "TextureManager. Surface отсутствует.");
 		return 0;
 	}
 
@@ -72,7 +72,7 @@ Texture * TextureManager::GetTextureFromImage( unsigned int image, unsigned int 
 	auto t = imageList.find(image);
 	if(t == imageList.end())
 	{
-		throw std::runtime_error("GetTextureFromImage failed");
+		LOG(LOG_WARNING, "TextureManager. Изображение отсутствует в видео памяти.");
 		return nullptr;
 	}
 	Texture *texture = new Texture;
@@ -98,7 +98,10 @@ bool TextureManager::AddTexture(Texture *texture, std::string name)
 {
 	auto f= textureList.find(name);
 	if(f != textureList.end())
+	{
+		LOG(LOG_WARNING, "TextureManager. Текстура " + name + " уже существует.");
 		return false;
+	}
 
 	textureList[name] = texture;
 
@@ -109,12 +112,15 @@ bool TextureManager::RemoveTexture(std::string name)
 {
 	auto f= textureList.find(name);
 	if(f == textureList.end())
+	{
+		LOG(LOG_WARNING, "TextureManager. Невозможно удалить текстуру. Текстура не найдена.");
 		return false;
+	}
 
 	auto t = imageList.find(textureList[name]->textureId);
 	if(t == imageList.end())
 	{
-		throw std::runtime_error("RemoveTexture failed");
+		LOG(LOG_WARNING, "TextureManager. Невозможно удалить текстуру. Текстура не найдена.");
 		return false;
 	}
 	else
@@ -133,11 +139,18 @@ bool TextureManager::RemoveTexture(std::string name)
 
 Texture * TextureManager::GetTexture( std::string name )
 {
-	auto f= textureList.find(name);
+	auto f = textureList.find(name);
 	if(f == textureList.end())
 	{
-		throw std::runtime_error("GetTexture failed. Texture not found.");
-		return nullptr;
+		LOG(LOG_WARNING, "TextureManager. Текстура " + name + " не найдена.");
+		Texture *errorTexture = GetTexture("ERROR_TEXTURE");
+		if(errorTexture == nullptr)
+		{
+			LOG(LOG_ERROR, "TextureManager. Текстура ERROR_TEXTURE не найдена");
+			return nullptr;
+		}
+		else
+			return errorTexture;
 	}
 	return (*f).second;
 }
@@ -145,11 +158,43 @@ Texture * TextureManager::GetTexture( std::string name )
 bool TextureManager::LoadTextureFromFile( std::string fileName, std::string name )
 {
 	SDL_Surface *s = LoadSurfaceFromFile(fileName);
-	if(!s) return false;
+	if(!s) 
+	{
+		return false;
+	}
 
 	Texture *t = GetTextureFromImage(LoadImageFromSurface(s, true), 0, 0, s->w, s->h);
 	SDL_FreeSurface(s);
-	if(!t) return false;
+	if(!t)
+	{
+		return false;
+	}
 
 	return AddTexture(t, name);
+}
+
+void TextureManager::SetErrorTexture( std::string fileName )
+{
+
+	SDL_Surface *s = LoadSurfaceFromFile(fileName);
+	if(!s) 
+	{
+		LOG(LOG_ERROR, "TextureManager. Текстура ERROR_TEXTURE не загружена. Файл: " + fileName);
+		return ;
+	}
+
+	Texture *t = GetTextureFromImage(LoadImageFromSurface(s, true), 0, 0, s->w, s->h);
+	SDL_FreeSurface(s);
+	if(!t)
+	{
+		LOG(LOG_ERROR, "TextureManager. Текстура ERROR_TEXTURE не загружена. Файл: " + fileName);
+		return;
+	}
+
+	if(!AddTexture(t, "ERROR_TEXTURE"))
+	{
+		LOG(LOG_ERROR, "TextureManager. Текстура ERROR_TEXTURE не загружена. Файл: " + fileName);
+		return;
+	}
+
 }

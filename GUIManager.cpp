@@ -17,14 +17,15 @@ bool GUIManager::Initialize()
 {
 
 	fontManager->GenerateFonts(width, height);
-	fontDefault = fontManager->Get("FontDefault");
+	NameDefaultFont = fontManager->GetNameDefaultFont();
+	fontDefault = fontManager->GetDefaultFont();
 
-	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
+	for (auto i = guiObjectLists.begin(); i != guiObjectLists.end(); i++)
 	{
 		if((*i)->font == nullptr)
 		{
 			(*i)->SetFont(fontDefault);
-			(*i)->fontName = "FontDefault";
+			(*i)->fontName = NameDefaultFont;
 		}
 	}
 	
@@ -90,8 +91,17 @@ void GUIManager::Resize(int _width, int _height)
 	width = _width;
 	height = _height;
 	fontManager->GenerateFonts(width, height);
+
+//	NameDefaultFont = fontManager->GetNameDefaultFont();
+//	fontDefault = fontManager->GetDefaultFont();
+
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
+		if( (*i)->GetFont() == nullptr )
+		{
+			(*i)->fontName = NameDefaultFont;
+			(*i)->SetFont(fontDefault);
+		}
 		(*i)->Resize(width, height);
 	}
 }

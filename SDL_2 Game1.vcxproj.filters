@@ -25,6 +25,9 @@
     <Filter Include="Шрифты">
       <UniqueIdentifier>{00b07c3b-6cd0-4d5e-9b7b-2063dfc9e2f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Графический интерфейс\ГУИ элементы">
+      <UniqueIdentifier>{c7e3ca51-a4bb-47b0-8bd2-f48c84b95a13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -36,17 +39,11 @@
     <ClInclude Include="MyGame.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="GUIObject.h">
-      <Filter>Графический интерфейс</Filter>
-    </ClInclude>
     <ClInclude Include="GUIManager.h">
       <Filter>Графический интерфейс</Filter>
     </ClInclude>
     <ClInclude Include="EventHandler.h">
       <Filter>События</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIButton.h">
-      <Filter>Графический интерфейс</Filter>
     </ClInclude>
     <ClInclude Include="GameMath.h">
       <Filter>Заголовочные файлы</Filter>
@@ -72,14 +69,20 @@
     <ClInclude Include="TextureAtlas.h">
       <Filter>Рендер</Filter>
     </ClInclude>
-    <ClInclude Include="GUILabel.h">
-      <Filter>Графический интерфейс</Filter>
-    </ClInclude>
     <ClInclude Include="GUIFPS.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIObject.h">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILabel.h">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +95,6 @@
     <ClCompile Include="GUIManager.cpp">
       <Filter>Графический интерфейс</Filter>
     </ClCompile>
-    <ClCompile Include="GUIObject.cpp">
-      <Filter>Графический интерфейс</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
@@ -103,9 +103,6 @@
     </ClCompile>
     <ClCompile Include="EventHandler.cpp">
       <Filter>События</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIButton.cpp">
-      <Filter>Графический интерфейс</Filter>
     </ClCompile>
     <ClCompile Include="GameMath.cpp">
       <Filter>Файлы исходного кода</Filter>
@@ -131,14 +128,20 @@
     <ClCompile Include="TextureAtlas.cpp">
       <Filter>Рендер</Filter>
     </ClCompile>
-    <ClCompile Include="GUILabel.cpp">
-      <Filter>Графический интерфейс</Filter>
-    </ClCompile>
     <ClCompile Include="GUIFPS.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIObject.cpp">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILabel.cpp">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

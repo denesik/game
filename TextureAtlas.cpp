@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <SDL_Image.h>
 #include <math.h>
+#include "Logger.h"
 
 
 TextureAtlas::TextureAtlas(void)
@@ -88,7 +89,7 @@ bool TextureAtlas::InsertSurface()
 		int r = SDL_BlitSurface(surfaceTmp, nullptr, surface, &dstrect);
 		if(r != 0)
 		{
-			throw std::runtime_error("InsertSurface failed. SDL_BlitSurface.");
+			LOG(LOG_ERROR, "TextureAtlas. Surfase не создана.");
 			return false;
 		}
 

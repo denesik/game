@@ -38,8 +38,10 @@ public:
 	unsigned int LoadImageFromSurface(SDL_Surface *surface, bool smoothing);
 	Texture *GetTextureFromImage(unsigned int image, unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2);
 	
+	void SetErrorTexture(std::string fileName);
+
 	bool AddTexture(Texture *texture, std::string name);
-	bool RemoveTexture(std::string name);			// Дописать проверки
+	bool RemoveTexture(std::string name);
 	Texture *GetTexture(std::string name);
 
 	bool LoadTextureFromFile(std::string fileName, std::string name);

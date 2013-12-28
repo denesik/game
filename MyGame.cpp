@@ -31,10 +31,9 @@ void MyGame::test(int x1, int x2)
 bool MyGame::Initialize()
 {
 	fontManager = new GUIFontManager();
-	fontManager->Add("FontDefault", new GUIFont("fonts/ACADEITA.TTF",12));
-	fontManager->Add("ACADEROM", new GUIFont("fonts/ACADEROM.TTF",10));
-	fontManager->Add("BIRCH_C", new GUIFont("fonts/BIRCH_C.TTF",12));
+	fontManager->SetDefaultFont(new GUIFont("fonts/ACADEITA.TTF",12));
 	fontManager->Add("fps", new GUIFont("fonts/FIEST24.TTF",9));
+	fontManager->Add("ACADEROM", new GUIFont("fonts/ACADEROM.TTF",10));
 
 	guiManager = new GUIManager(width, height);
 	AddGameComponent(guiManager);
@@ -63,6 +62,7 @@ bool MyGame::Initialize()
 
 void MyGame::LoadContent()
 {
+	textureManager->SetErrorTexture("ErrorTexture.png");
 	fps->SetFont("fps");
 	SDL_Surface *guiTexture = textureManager->LoadSurfaceFromFile("gui4.png");
 	unsigned int tertureId = textureManager->LoadImageFromSurface(guiTexture, true);
@@ -70,7 +70,7 @@ void MyGame::LoadContent()
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 15, 31, 16, 22), "GUI_borderBot");
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 0, 15, 9, 16), "GUI_borderLeft");
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 22, 15, 31, 16), "GUI_borderRight");
-
+	
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 0, 9, 9, 0), "GUI_borderTopLeft");
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 22, 9, 31, 0), "GUI_borderTopRight");
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 22, 31, 31, 22), "GUI_borderBotRight");
