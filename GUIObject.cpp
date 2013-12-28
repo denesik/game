@@ -41,7 +41,7 @@ void GUIObject::Draw( Render *render )
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
 
-	Rect r;
+	Rectangle2i r;
 	render->BindTexture(windowTexture.borderTop->textureId);
 	r.h = windowTexture.borderBotLeft->height;
 	r.w = windowTexture.borderBotLeft->width;

@@ -28,8 +28,8 @@ protected:
 	std::string fontName;
 	Font *font;
 
-	Rect boundBoxOriginal;
-	Rect boundBox;
+	Rectangle2i boundBoxOriginal;
+	Rectangle2i boundBox;
 	WindowTexture windowTexture;
 
 	virtual void SetFont(Font *font);

@@ -24,7 +24,7 @@ void GUIButton::Draw(Render *render)
 	glColor3ub(0,0,0);	
 
 	if(text.length() > 0)
-		font->Print(textX,textY,text);
+		font->Print(float(textX), float(textY), text);
 
 /*
 	glDisable(GL_BLEND);
@@ -52,7 +52,7 @@ void GUIButton::Resize( int width, int height )
 
 void GUIButton::ResizeText()
 {
-	Rect bb = font->GetBoundBox(text);
+	Rectangle2i bb = font->GetBoundBox(text);
 	textX = boundBox.x + (boundBox.w - bb.w) / 2;
 	textY = boundBox.y - bb.y + (boundBox.h - bb.h) / 2;
 }

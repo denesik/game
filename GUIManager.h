@@ -45,7 +45,7 @@ public:
 	virtual void OnMouseButtonClick(int button, int x, int y);
 
 private:
-	bool HittingArea(int x, int y, Rect area);
+	bool HittingArea(int x, int y, Rectangle2i area);
 };
 
 

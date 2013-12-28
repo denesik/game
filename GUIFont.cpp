@@ -3,7 +3,7 @@
 
 GUIFont::GUIFont(const char *_filename, unsigned int _size)
 {
-	size_font = _size;
+	size_font = float(_size);
 	filename = _filename;
 }
 
@@ -20,10 +20,10 @@ bool GUIFont::Generate( int width, int height )
 
 void GUIFont::SetSize( unsigned int _size )
 {
-	size_font = _size;
+	size_font = float(_size);
 }
 
 int GUIFont::GetSize()
 {
-	return size_font;
+	return int(size_font);
 }

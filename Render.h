@@ -38,10 +38,10 @@ public:
 	void PushProjectionMatrix(); 
 	void PopProjectionMatrix(); 
 
-	void DrawRectangle(Rect rectangle);
-	void DrawQuad2D(Rect rectangle);
+	void DrawRectangle(Rectangle2i rectangle);
+	void DrawQuad2D(Rectangle2i rectangle);
 	void DrawQuad2D(int x1, int y1, int x2, int y2);
-	void DrawQuad2D(Rect rectangle, Texture tex);
+	void DrawQuad2D(Rectangle2i rectangle, Texture tex);
 	void BindTexture(unsigned int textureId);
 };
 

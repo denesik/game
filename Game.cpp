@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include "Logger.h"
 
 Game::Game(void)
 {
@@ -29,7 +30,7 @@ bool Game::Initialize()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
-		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		LOG(LOG_ERROR, "SDL не инициализирован.");
 		Running = false;
 	}
 	
@@ -49,6 +50,7 @@ int Game::Run()
 {
 	if(!Initialize()) 
 	{
+		LOG(LOG_ERROR, "Инициализация завершилась с ошибками.");
 		return -1;
 	}
 

@@ -24,7 +24,7 @@ void GUILabel::Draw( Render *render )
 {
 	glColor3ub(0,0,0);	
 
-	font->Print(textX,textY,text);
+	font->Print(float(textX),float(textY),text);
 
 /*	glDisable(GL_BLEND);
 	render->DrawRectangle(boundBox);*/
@@ -44,7 +44,7 @@ void GUILabel::Resize( int width, int height )
 void GUILabel::SetText( std::string _text )
 {
 	text = _text;
-	Rect bb = font->GetBoundBox(text);
+	Rectangle2i bb = font->GetBoundBox(text);
 
 	ResizeText();
 }
@@ -56,7 +56,7 @@ void GUILabel::LoadContent()
 
 void GUILabel::ResizeText()
 {
-	Rect bb = font->GetBoundBox(text);
+	Rectangle2i bb = font->GetBoundBox(text);
 	boundBox.x = textX;
 	boundBox.y = textY + bb.y;
 	boundBox.w = bb.w;

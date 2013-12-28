@@ -14,7 +14,6 @@ public:
 
 	void SetSize( unsigned int size );
 	int GetSize();
-
 	bool Generate(int width, int height);
 
 };

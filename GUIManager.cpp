@@ -135,7 +135,7 @@ void GUIManager::OnMouseButtonClick( int button, int x, int y )
 	}
 }
 
-bool GUIManager::HittingArea(int x, int y, Rect area)
+bool GUIManager::HittingArea(int x, int y, Rectangle2i area)
 {
 	return (x >= area.x && x <= area.x + area.w && y >= area.y && y <= area.y + area.h);
 }

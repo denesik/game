@@ -3,12 +3,13 @@
 #include <algorithm>
 #include <SDL_surface.h>
 #include <SDL_Image.h>
+#include "Logger.h"
 using namespace std;
 
 Font::Font(const char *_filename, unsigned int _size)
 {
 	filename = _filename;
-	size = _size;
+	size = float(_size);
 }
 
 Font::~Font(void)
@@ -22,14 +23,14 @@ bool Font::Generate()
 
 	if (FT_Init_FreeType( &library )) 
 	{
-		throw std::runtime_error("FT_Init_FreeType failed");
+		LOG(LOG_ERROR, "FreeType не инициализирвоан.");
 		return false;
 	}
 
 	FT_Face face;
 	if (FT_New_Face( library, filename, 0, &face )) 
 	{
-		throw std::runtime_error("FT_New_Face failed (there is probably a problem with your font file)");
+		LOG(LOG_ERROR, "FreeType. Файл шрифтов не загружен.");
 		return false;
 	}
 	// По некоторым причинам FreeType измеряет размер шрифта в терминах 1/64 пикселя.
@@ -40,7 +41,7 @@ bool Font::Generate()
 	textureAtlas.Create(textureAtlasSizeX,textureAtlasSizeY);
 
 	for(short i=0;i<GLYPHCOUNT;i++)
-		MakeFontAtlas(face,i);
+		MakeFontAtlas(face,(unsigned char)(i));
 
 	FT_Done_Face(face);
 	FT_Done_FreeType(library);
@@ -59,11 +60,15 @@ void Font::Cleanup()
 void Font::MakeFontAtlas ( FT_Face face, unsigned char ch) 
 {
 	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), FT_LOAD_DEFAULT ))
-		throw std::runtime_error("FT_Load_Glyph failed");
+	{
+		LOG(LOG_ERROR, "FreeType. Невозможно загрузить глиф.");
+	}
 
 	FT_Glyph glyph;
 	if(FT_Get_Glyph( face->glyph, &glyph ))
-		throw std::runtime_error("FT_Get_Glyph failed");
+	{
+		LOG(LOG_ERROR, "FreeType. Невозможно загрузить глиф.");
+	}
 
 	FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1 );
 	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph)glyph;
@@ -143,7 +148,7 @@ void Font::Print(float x, float y, string str)
 
 	glTranslatef(0.5, 0.5, 0.0);
 
-	for(int i=0;i<lines.size();i++) 
+	for(unsigned int i=0; i < lines.size(); i++) 
 	{
 		glPushMatrix();
 		glLoadIdentity();
@@ -151,11 +156,11 @@ void Font::Print(float x, float y, string str)
 		glMultMatrixf(modelview_matrix);
 		const unsigned char *s1 = reinterpret_cast<const unsigned char *> (lines[i].c_str());
 
-		for (int j = 0; j < lines[i].length(); j++)
+		for (unsigned int j = 0; j < lines[i].length(); j++)
 		{
 			if(s1[j] == ' ')
 			{
-				glTranslatef(glyphs['8'].width,0,0);
+				glTranslatef(float(glyphs['8'].width),0,0);
 			}
 			double u1 = glyphs[s1[j]].texture.u1;
 			double v1 = glyphs[s1[j]].texture.v1;
@@ -168,13 +173,13 @@ void Font::Print(float x, float y, string str)
 			int y2 = glyphs[s1[j]].height + glyphs[s1[j]].offsetDown;
 
 			glBegin(GL_TRIANGLE_STRIP);
-				glTexCoord2d(u1,v1); glVertex2f(x1, y1);
-				glTexCoord2d(u1,v2); glVertex2f(x1, y2);
-				glTexCoord2d(u2,v1); glVertex2f(x2, y1);
-				glTexCoord2d(u2,v2); glVertex2f(x2, y2);
+				glTexCoord2d(u1,v1); glVertex2i(x1, y1);
+				glTexCoord2d(u1,v2); glVertex2i(x1, y2);
+				glTexCoord2d(u2,v1); glVertex2i(x2, y1);
+				glTexCoord2d(u2,v2); glVertex2i(x2, y2);
 			glEnd();
 
-			glTranslatef(x2,0,0);
+			glTranslatef(float(x2),0,0);
 		}
 
 		glPopMatrix();
@@ -183,11 +188,11 @@ void Font::Print(float x, float y, string str)
 	glPopAttrib();		
 }
 
-Rect &Font::GetBoundBox(string str)
+Rectangle2i Font::GetBoundBox(string str)
 {
 	float fsize=size/.63f;
 
-	Rect rect;
+	Rectangle2i rect;
 	rect.w = 0;
 	rect.h = 0;
 	rect.x = 0;
@@ -196,7 +201,7 @@ Rect &Font::GetBoundBox(string str)
 	int stringLenght = 0;
 	int stringOffsetUp = 0;
 	int stringOffsetDown = 0;
-	for(int i=0; i < str.length(); i++) 
+	for(unsigned int i=0; i < str.length(); i++) 
 	{
 		unsigned char glyph = (unsigned char)(str[i]);
 
@@ -205,7 +210,7 @@ Rect &Font::GetBoundBox(string str)
 			if(rect.w < stringLenght)
 				rect.w = stringLenght;
 
-			rect.h += fsize;
+			rect.h += int(fsize);
 			stringLenght = 0;
 			stringOffsetDown = 0;
 			continue;
@@ -239,10 +244,10 @@ Rect &Font::GetBoundBox(string str)
 
 int Font::GetSize()
 {
-	return size;
+	return int(size);
 }
 
 void Font::SetSize( unsigned int _size )
 {
-	size = _size;
+	size = float(_size);
 }

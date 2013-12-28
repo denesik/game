@@ -51,7 +51,7 @@ public:
 
 	virtual int GetSize();
 
-	virtual Rect &GetBoundBox(std::string str);
+	virtual Rectangle2i GetBoundBox(std::string str);
 
 private:
 	virtual void MakeFontAtlas ( FT_Face face, unsigned char ch);
