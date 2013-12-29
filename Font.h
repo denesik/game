@@ -35,12 +35,13 @@ protected:
 
 	FontTexture glyphs[GLYPHCOUNT];
 
-	float size;
+	unsigned int size;
 	std::string filename;
+	std::string fontName;
 
 public:
 	Font(){};
-	Font(std::string filename, unsigned int size);
+	Font(std::string filename, std::string fontName, unsigned int size);
 	~Font(void);
 
 	virtual void SetSize(unsigned int size);
@@ -49,7 +50,8 @@ public:
 
 	virtual void Print(float x, float y, std::string str);
 
-	virtual int GetSize();
+	virtual unsigned int GetSize();
+	virtual std::string GetFontName();
 
 	virtual Rectangle2i GetBoundBox(std::string str);
 

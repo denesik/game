@@ -1,1 +1,1 @@
-WARNING: GUIFontManager. Ўрифт fps уже существует.
+WARNING: GUIFontManager. Ўрифт fps не найден.

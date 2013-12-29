@@ -1,10 +1,11 @@
 #include "GUIFont.h"
 #include <math.h>
 
-GUIFont::GUIFont(const char *_filename, unsigned int _size)
+GUIFont::GUIFont(std::string _filename, std::string _fontName, unsigned int _size)
 {
-	size_font = float(_size);
+	size_font = _size;
 	filename = _filename;
+	fontName = _fontName;
 }
 
 
@@ -14,16 +15,16 @@ GUIFont::~GUIFont(void)
 
 bool GUIFont::Generate( int width, int height )
 {
-	size = size_font * sqrt((float(width) / 800) * (float(height) / 600));
+	size = (unsigned int)(size_font * sqrt((float(width) / 800) * (float(height) / 600)));
 	return Font::Generate();
 }
 
 void GUIFont::SetSize( unsigned int _size )
 {
-	size_font = float(_size);
+	size_font = _size;
 }
 
-int GUIFont::GetSize()
+unsigned int GUIFont::GetSize()
 {
 	return int(size_font);
 }

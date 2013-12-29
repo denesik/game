@@ -31,9 +31,9 @@ void MyGame::test(int x1, int x2)
 bool MyGame::Initialize()
 {
 	fontManager = new GUIFontManager();
-	fontManager->SetDefaultFont(new GUIFont("fonts/ACADEITA.TTF",12));
-	fontManager->Add("fps", new GUIFont("fonts/FIEST24.TTF",9));
-	fontManager->Add("ACADEROM", new GUIFont("fonts/ACADEROM.TTF",10));
+	fontManager->SetDefaultFont(new GUIFont("fonts/ACADEITA.TTF", "ACADEITA", 12));
+	fontManager->Add(new GUIFont("fonts/FIEST24.TTF", "fps", 9));
+	fontManager->Add(new GUIFont("fonts/ACADEROM.TTF", "ACADEROM", 10));
 
 	guiManager = new GUIManager(width, height);
 	AddGameComponent(guiManager);
@@ -78,6 +78,7 @@ void MyGame::LoadContent()
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 15, 15, 16, 16), "GUI_body");
 
 	Game::LoadContent();
+
 }
 
 void MyGame::Update()

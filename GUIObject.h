@@ -25,15 +25,11 @@ class GUIObject
 protected:
 	GUIManager *guiManager;
 
-	std::string fontName;
 	Font *font;
 
 	Rectangle2i boundBoxOriginal;
 	Rectangle2i boundBox;
 	WindowTexture windowTexture;
-
-	virtual void SetFont(Font *font);
-	virtual Font *GetFont();
 
 public:
 	bool isVisible;
@@ -54,6 +50,8 @@ public:
 	virtual void Draw(Render *render);
 
 	virtual void SetFont(std::string fontName);
+	virtual void SetFont(Font *font);
+	virtual Font *GetFont();
 };
 
 

@@ -69,9 +69,6 @@
     <ClInclude Include="TextureAtlas.h">
       <Filter>Рендер</Filter>
     </ClInclude>
-    <ClInclude Include="GUIFPS.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
@@ -82,6 +79,9 @@
       <Filter>Графический интерфейс\ГУИ элементы</Filter>
     </ClInclude>
     <ClInclude Include="GUILabel.h">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIFPS.h">
       <Filter>Графический интерфейс\ГУИ элементы</Filter>
     </ClInclude>
   </ItemGroup>
@@ -128,9 +128,6 @@
     <ClCompile Include="TextureAtlas.cpp">
       <Filter>Рендер</Filter>
     </ClCompile>
-    <ClCompile Include="GUIFPS.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
@@ -141,6 +138,9 @@
       <Filter>Графический интерфейс\ГУИ элементы</Filter>
     </ClCompile>
     <ClCompile Include="GUILabel.cpp">
+      <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIFPS.cpp">
       <Filter>Графический интерфейс\ГУИ элементы</Filter>
     </ClCompile>
   </ItemGroup>

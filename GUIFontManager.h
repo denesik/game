@@ -1,15 +1,15 @@
 #ifndef GUIFontManager_h__
 #define GUIFontManager_h__
 
-#include <map>
+#include <vector>
 #include <string>
 #include "GUIFont.h"
 
 class GUIFontManager
 {
 protected:
-	std::map<std::string, GUIFont*> fontsMap;
-	std::string NameDefaultFont;
+	std::vector<GUIFont*> fontsMap;
+	GUIFont *defaultFont;
 
 public:
 	GUIFontManager(void);
@@ -17,11 +17,12 @@ public:
 
 	void SetDefaultFont(GUIFont *font);
 	GUIFont *GetDefaultFont();
-	std::string GetNameDefaultFont();
 
-	bool Add(std::string fontName, GUIFont *font);
-	int Remove(std::string fontName);
+	bool Add(GUIFont *font);
+	bool Remove(std::string fontName);
+	bool Remove(GUIFont *font);
 	GUIFont *Get(std::string fontName);
+	GUIFont *Get(GUIFont *font);
 
 	bool GenerateFonts(int width, int height);
 

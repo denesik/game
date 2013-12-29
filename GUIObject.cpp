@@ -4,7 +4,6 @@
 GUIObject::GUIObject()
 {
 	font = nullptr;
-	fontName = "";
 
 	bool isVisible = true;
 	bool isActive = true;
@@ -31,12 +30,10 @@ void GUIObject::SetFont( std::string _fontName )
 	if(f != nullptr)
 	{
 		font = f;
-		fontName = _fontName;
 	}
 	else
 	{
 		font =  guiManager->GetFontManager()->GetDefaultFont();
-		fontName = guiManager->GetFontManager()->GetNameDefaultFont();
 	}
 }
 

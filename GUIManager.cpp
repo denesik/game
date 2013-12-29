@@ -5,6 +5,7 @@ GUIManager::GUIManager(int _width, int _height)
 {
 	width = _width;
 	height = _height;
+	fontDefault = nullptr;
 }
 
 
@@ -17,7 +18,6 @@ bool GUIManager::Initialize()
 {
 
 	fontManager->GenerateFonts(width, height);
-	NameDefaultFont = fontManager->GetNameDefaultFont();
 	fontDefault = fontManager->GetDefaultFont();
 
 	for (auto i = guiObjectLists.begin(); i != guiObjectLists.end(); i++)
@@ -25,7 +25,6 @@ bool GUIManager::Initialize()
 		if((*i)->font == nullptr)
 		{
 			(*i)->SetFont(fontDefault);
-			(*i)->fontName = NameDefaultFont;
 		}
 	}
 	
@@ -76,6 +75,12 @@ void GUIManager::Draw(Render *render)
 int GUIManager::AddGUIObject(GUIObject *guiObject)
 {
 	guiObjectLists.push_back(guiObject);
+	if(guiObject->font == nullptr)
+	{
+		if(fontDefault == nullptr)
+			fontDefault = fontManager->GetDefaultFont();
+		guiObject->SetFont(fontDefault);
+	}
 	guiObject->guiManager = this;
 	return 0;
 }
@@ -92,14 +97,12 @@ void GUIManager::Resize(int _width, int _height)
 	height = _height;
 	fontManager->GenerateFonts(width, height);
 
-//	NameDefaultFont = fontManager->GetNameDefaultFont();
 //	fontDefault = fontManager->GetDefaultFont();
 
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
 		if( (*i)->GetFont() == nullptr )
 		{
-			(*i)->fontName = NameDefaultFont;
 			(*i)->SetFont(fontDefault);
 		}
 		(*i)->Resize(width, height);

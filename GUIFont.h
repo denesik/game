@@ -6,14 +6,14 @@
 class GUIFont : public Font
 {
 private:
-	float size_font;
+	unsigned int size_font; 
 
 public:
-	GUIFont(const char *_filename, unsigned int size);
+	GUIFont(std::string filename, std::string fontName, unsigned int size);
 	~GUIFont(void);
 
 	void SetSize( unsigned int size );
-	int GetSize();
+	unsigned int GetSize();
 	bool Generate(int width, int height);
 
 };

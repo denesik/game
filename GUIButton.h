@@ -14,7 +14,6 @@ protected:
 	std::string text;
 
 public:
-
 	FastDelegate2<int, int> MouseClickEvent;
 
 public:

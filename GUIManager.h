@@ -18,7 +18,6 @@ protected:
 	int height;
 
 	GUIFont *fontDefault;
-	std::string NameDefaultFont;
 
 public:
 	GUIManager(int width, int height);
@@ -36,6 +35,8 @@ public:
 	virtual void SetTextureManager(TextureManager *textureManager);
 	virtual TextureManager *GetTextureManager();
 
+	// В данный момент нельзя установить новый шрифт по умолчанию в рантайме!
+	// Шрифт установится, но ссылки в элементах необходимо обновлять вручную.
 	virtual void SetFontManager(GUIFontManager *_fontManager);
 	virtual GUIFontManager *GetFontManager();
 

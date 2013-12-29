@@ -6,10 +6,11 @@
 #include "Logger.h"
 using namespace std;
 
-Font::Font(std::string _filename, unsigned int _size)
+Font::Font(std::string _filename, std::string _fontName, unsigned int _size)
 {
 	filename = _filename;
-	size = float(_size);
+	fontName = _fontName;
+	size = _size;
 }
 
 Font::~Font(void)
@@ -36,7 +37,7 @@ bool Font::Generate()
 	// По некоторым причинам FreeType измеряет размер шрифта в терминах 1/64 пикселя.
 	// Таким образом, для того чтобы сделать шрифт выстой size пикселей, мы запрашиваем размер size*64.
 	// (size << 6 тоже самое что и size*64)
-	FT_Set_Char_Size( face, int(size) << 6, int(size) << 6, 96, 96);
+	FT_Set_Char_Size( face, size << 6, size << 6, 96, 96);
 
 	textureAtlas.Create(textureAtlasSizeX,textureAtlasSizeY);
 
@@ -115,7 +116,7 @@ void Font::MakeFontAtlas ( FT_Face face, unsigned char ch)
 void Font::Print(float x, float y, string str)  
 {			
 	// Сделаем высоту немного больше, что бы оставить место между линиями.
-	float fsize=this->size/.63f;		
+	float fsize = float(size) / 0.63f;		
 
 	vector<string> lines;
 	string allow; //переменная, для выделения слов из прописи
@@ -242,12 +243,17 @@ Rectangle2i Font::GetBoundBox(string str)
 	return rect;
 }
 
-int Font::GetSize()
+unsigned int Font::GetSize()
 {
-	return int(size);
+	return size;
 }
 
 void Font::SetSize( unsigned int _size )
 {
-	size = float(_size);
+	size = _size;
+}
+
+std::string Font::GetFontName()
+{
+	return fontName;
 }
