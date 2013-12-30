@@ -25,7 +25,7 @@ class GUIObject
 protected:
 	GUIManager *guiManager;
 
-	Font *font;
+	IFont *font;
 
 	Rectangle2i boundBoxOriginal;
 	Rectangle2i boundBox;
@@ -49,9 +49,8 @@ public:
 	virtual void Update(){};
 	virtual void Draw(Render *render);
 
-	virtual void SetFont(std::string fontName);
-	virtual void SetFont(Font *font);
-	virtual Font *GetFont();
+	virtual void SetFont(IFont *font);
+	virtual IFont *GetFont();
 };
 
 

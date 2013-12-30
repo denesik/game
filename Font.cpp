@@ -4,29 +4,48 @@
 #include <SDL_surface.h>
 #include <SDL_Image.h>
 #include "Logger.h"
+
 using namespace std;
 
-Font::Font(std::string _filename, std::string _fontName, unsigned int _size)
+std::string IFont::GetFontName()
+{
+	return fontName;
+}
+
+FontTTF::FontTTF( std::string _filename, std::string _fontName, unsigned int _size )
 {
 	filename = _filename;
 	fontName = _fontName;
 	size = _size;
 }
 
-Font::~Font(void)
+FontTTF::~FontTTF( void )
 {
+	Cleanup();
+	FT_Done_FreeType(library);
 }
 
-bool Font::Generate()
+bool FontTTF::Initialize()
 {
-
-	FT_Library library;
 
 	if (FT_Init_FreeType( &library )) 
 	{
 		LOG(LOG_ERROR, "FreeType не инициализирвоан.");
 		return false;
 	}
+	return true;
+}
+
+bool FontTTF::Generate()
+{
+	// Сделаем высоту немного больше, что бы оставить место между линиями.
+	float fsize = float(size) / 0.63f;		
+
+	return Generate(size);
+}
+
+bool FontTTF::Generate( unsigned int _size )
+{
 
 	FT_Face face;
 	if (FT_New_Face( library, filename.c_str(), 0, &face )) 
@@ -37,15 +56,14 @@ bool Font::Generate()
 	// По некоторым причинам FreeType измеряет размер шрифта в терминах 1/64 пикселя.
 	// Таким образом, для того чтобы сделать шрифт выстой size пикселей, мы запрашиваем размер size*64.
 	// (size << 6 тоже самое что и size*64)
-	FT_Set_Char_Size( face, size << 6, size << 6, 96, 96);
+	FT_Set_Char_Size( face, _size << 6, _size << 6, 96, 96);
 
 	textureAtlas.Create(textureAtlasSizeX,textureAtlasSizeY);
 
-	for(short i=0;i<GLYPHCOUNT;i++)
+	for(short i = 0; i < GLYPHCOUNT; i++)
 		MakeFontAtlas(face,(unsigned char)(i));
 
 	FT_Done_Face(face);
-	FT_Done_FreeType(library);
 
 	TextureManager tm;
 	glyphs->textureId = tm.LoadImageFromSurface(textureAtlas.GetAtlas(), false);
@@ -53,70 +71,22 @@ bool Font::Generate()
 	return true;
 }
 
-void Font::Cleanup()
+bool FontTTF::Generate( int width, int height )
+{
+	unsigned int _size = (unsigned int)(size * sqrt((float(width) / 800) * (float(height) / 600)));
+	// Сделаем высоту немного больше, что бы оставить место между линиями.
+	float fsize = float(_size) / 0.63f;
+
+	return Generate(_size);
+}
+
+void FontTTF::Cleanup()
 {
 	textureAtlas.Remove();
 }
 
-void Font::MakeFontAtlas ( FT_Face face, unsigned char ch) 
+void FontTTF::Print( float x, float y, std::string str )
 {
-	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), FT_LOAD_DEFAULT ))
-	{
-		LOG(LOG_ERROR, "FreeType. Невозможно загрузить глиф.");
-	}
-
-	FT_Glyph glyph;
-	if(FT_Get_Glyph( face->glyph, &glyph ))
-	{
-		LOG(LOG_ERROR, "FreeType. Невозможно загрузить глиф.");
-	}
-
-	FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1 );
-	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph)glyph;
-
-	FT_Bitmap &bitmap=bitmap_glyph->bitmap;
-
-	Uint32 rmask, gmask, bmask, amask;
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	rmask = 0xff000000;
-	gmask = 0x00ff0000;
-	bmask = 0x0000ff00;
-	amask = 0x000000ff;
-#else
-	rmask = 0x000000ff;
-	gmask = 0x0000ff00;
-	bmask = 0x00ff0000;
-	amask = 0xff000000;
-#endif
-
-	SDL_Surface *surface = SDL_CreateRGBSurface(0,bitmap.width,bitmap.rows,32,rmask,gmask,bmask,amask);
-	for(int j=0; j <bitmap.rows;j++) 
-	{
-		for(int i=0; i < bitmap.width; i++)
-		{
- 			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 0] = 255;
- 			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 1] = 255;
- 			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 2] = 255;
- 			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 3] = bitmap.buffer[i + bitmap.width * j];
-		}
-	}
-	unsigned int x1, y1;
-	textureAtlas.InsertSurface(surface, x1, y1);
-	glyphs[ch].width = bitmap.width;
-	glyphs[ch].height = bitmap.rows;
-	glyphs[ch].offsetDown = bitmap_glyph->top-bitmap.rows;
-	glyphs[ch].texture.u1 = double(x1) / textureAtlasSizeX;
-	glyphs[ch].texture.v1 = double(y1 + bitmap.rows) / textureAtlasSizeY;
-	glyphs[ch].texture.u2 = double(x1 + bitmap.width) / textureAtlasSizeX;
-	glyphs[ch].texture.v2 = double(y1) / textureAtlasSizeY;
-
-	SDL_FreeSurface(surface);
-}
-
-void Font::Print(float x, float y, string str)  
-{			
-	// Сделаем высоту немного больше, что бы оставить место между линиями.
-	float fsize = float(size) / 0.63f;		
 
 	vector<string> lines;
 	string allow; //переменная, для выделения слов из прописи
@@ -174,10 +144,10 @@ void Font::Print(float x, float y, string str)
 			int y2 = glyphs[s1[j]].height + glyphs[s1[j]].offsetDown;
 
 			glBegin(GL_TRIANGLE_STRIP);
-				glTexCoord2d(u1,v1); glVertex2i(x1, y1);
-				glTexCoord2d(u1,v2); glVertex2i(x1, y2);
-				glTexCoord2d(u2,v1); glVertex2i(x2, y1);
-				glTexCoord2d(u2,v2); glVertex2i(x2, y2);
+			glTexCoord2d(u1,v1); glVertex2i(x1, y1);
+			glTexCoord2d(u1,v2); glVertex2i(x1, y2);
+			glTexCoord2d(u2,v1); glVertex2i(x2, y1);
+			glTexCoord2d(u2,v2); glVertex2i(x2, y2);
 			glEnd();
 
 			glTranslatef(float(x2),0,0);
@@ -189,9 +159,8 @@ void Font::Print(float x, float y, string str)
 	glPopAttrib();		
 }
 
-Rectangle2i Font::GetBoundBox(string str)
+Rectangle2i FontTTF::GetBoundBox( std::string str )
 {
-	float fsize=size/.63f;
 
 	Rectangle2i rect;
 	rect.w = 0;
@@ -243,17 +212,57 @@ Rectangle2i Font::GetBoundBox(string str)
 	return rect;
 }
 
-unsigned int Font::GetSize()
+void FontTTF::MakeFontAtlas( FT_Face face, unsigned char ch )
 {
-	return size;
-}
+	if(FT_Load_Glyph( face, FT_Get_Char_Index( face, ch ), FT_LOAD_DEFAULT ))
+	{
+		LOG(LOG_ERROR, "FreeType. Невозможно загрузить глиф.");
+	}
 
-void Font::SetSize( unsigned int _size )
-{
-	size = _size;
-}
+	FT_Glyph glyph;
+	if(FT_Get_Glyph( face->glyph, &glyph ))
+	{
+		LOG(LOG_ERROR, "FreeType. Невозможно загрузить глиф.");
+	}
 
-std::string Font::GetFontName()
-{
-	return fontName;
+	FT_Glyph_To_Bitmap( &glyph, ft_render_mode_normal, 0, 1 );
+	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph)glyph;
+
+	FT_Bitmap &bitmap=bitmap_glyph->bitmap;
+
+	Uint32 rmask, gmask, bmask, amask;
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	SDL_Surface *surface = SDL_CreateRGBSurface(0,bitmap.width,bitmap.rows,32,rmask,gmask,bmask,amask);
+	for(int j=0; j <bitmap.rows;j++) 
+	{
+		for(int i=0; i < bitmap.width; i++)
+		{
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 0] = 255;
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 1] = 255;
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 2] = 255;
+			((GLubyte*)(surface->pixels))[4 * (i + j * bitmap.width) + 3] = bitmap.buffer[i + bitmap.width * j];
+		}
+	}
+	unsigned int x1, y1;
+	textureAtlas.InsertSurface(surface, x1, y1);
+	glyphs[ch].width = bitmap.width;
+	glyphs[ch].height = bitmap.rows;
+	glyphs[ch].offsetDown = bitmap_glyph->top-bitmap.rows;
+	glyphs[ch].texture.u1 = double(x1) / textureAtlasSizeX;
+	glyphs[ch].texture.v1 = double(y1 + bitmap.rows) / textureAtlasSizeY;
+	glyphs[ch].texture.u2 = double(x1 + bitmap.width) / textureAtlasSizeX;
+	glyphs[ch].texture.v2 = double(y1) / textureAtlasSizeY;
+
+	SDL_FreeSurface(surface);
 }

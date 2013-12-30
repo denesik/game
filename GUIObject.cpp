@@ -14,27 +14,15 @@ GUIObject::~GUIObject(void)
 {
 }
 
-void GUIObject::SetFont( Font *_font )
+void GUIObject::SetFont( IFont *_font )
 {
 	font = _font;
+	guiManager->AddFont(font);
 }
 
-Font * GUIObject::GetFont()
+IFont * GUIObject::GetFont()
 {
 	return font;
-}
-
-void GUIObject::SetFont( std::string _fontName )
-{
-	Font *f = guiManager->GetFontManager()->Get(_fontName);
-	if(f != nullptr)
-	{
-		font = f;
-	}
-	else
-	{
-		font =  guiManager->GetFontManager()->GetDefaultFont();
-	}
 }
 
 void GUIObject::LoadContent()

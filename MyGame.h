@@ -3,14 +3,12 @@
 
 #include "game.h"
 #include "GUIManager.h"
-#include "GUIFontManager.h"
 #include "TextureManager.h"
 
 class MyGame : public Game
 {
 private:
 	GUIManager *guiManager;
-	GUIFontManager *fontManager;
 	GUIObject *fps;
 
 	void test(int x1, int x2);

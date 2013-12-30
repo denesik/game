@@ -16,14 +16,42 @@
 #include "TextureAtlas.h"
 #include "TextureManager.h"
 
-class Font
+class IFont
 {
 protected:
+
+	std::string filename;
+	std::string fontName;
+
+public:
+	IFont(){};
+	~IFont(void){};
+
+	virtual std::string GetFontName();
+
+	virtual bool Initialize() = 0;
+	virtual bool Generate() = 0;
+	virtual bool Generate(int width, int height){return true;};
+	virtual void Cleanup() = 0;
+
+	virtual void Print(float x, float y, std::string str) = 0;
+
+	virtual Rectangle2i GetBoundBox(std::string str) = 0;
+
+};
+
+class FontTTF : public IFont
+{
+protected:
+
+	FT_Library library;
+
 	TextureAtlas textureAtlas;
 
 	static const short GLYPHCOUNT = 256;
 	static const short textureAtlasSizeX = 512;
 	static const short textureAtlasSizeY = 512;
+
 	struct FontTexture
 	{
 		unsigned int textureId;
@@ -36,29 +64,26 @@ protected:
 	FontTexture glyphs[GLYPHCOUNT];
 
 	unsigned int size;
-	std::string filename;
-	std::string fontName;
+	float fsize;
 
 public:
-	Font(){};
-	Font(std::string filename, std::string fontName, unsigned int size);
-	~Font(void);
+	FontTTF(){};
+	FontTTF(std::string filename, std::string fontName, unsigned int size);
+	~FontTTF(void);
 
-	virtual void SetSize(unsigned int size);
+	virtual bool Initialize();
 	virtual bool Generate();
+	virtual bool Generate(int width, int height);
 	virtual void Cleanup();
 
 	virtual void Print(float x, float y, std::string str);
 
-	virtual unsigned int GetSize();
-	virtual std::string GetFontName();
-
 	virtual Rectangle2i GetBoundBox(std::string str);
 
-private:
-	virtual void MakeFontAtlas ( FT_Face face, unsigned char ch);
+protected:
+	bool Generate(unsigned int size);
+	void MakeFontAtlas ( FT_Face face, unsigned char ch);
 
 };
-
 
 #endif // GameFont_h__

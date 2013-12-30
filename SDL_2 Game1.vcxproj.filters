@@ -51,14 +51,8 @@
     <ClInclude Include="Render.h">
       <Filter>Рендер</Filter>
     </ClInclude>
-    <ClInclude Include="GUIFontManager.h">
-      <Filter>Графический интерфейс</Filter>
-    </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Шрифты</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIFont.h">
-      <Filter>Графический интерфейс</Filter>
     </ClInclude>
     <ClInclude Include="GameComponentManager.h">
       <Filter>Заголовочные файлы</Filter>
@@ -83,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="GUIFPS.h">
       <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClInclude>
+    <ClInclude Include="FontFactory.h">
+      <Filter>Шрифты</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,14 +107,8 @@
     <ClCompile Include="Render.cpp">
       <Filter>Рендер</Filter>
     </ClCompile>
-    <ClCompile Include="GUIFontManager.cpp">
-      <Filter>Графический интерфейс</Filter>
-    </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Шрифты</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIFont.cpp">
-      <Filter>Графический интерфейс</Filter>
     </ClCompile>
     <ClCompile Include="GameComponentManager.cpp">
       <Filter>Файлы исходного кода</Filter>
@@ -142,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="GUIFPS.cpp">
       <Filter>Графический интерфейс\ГУИ элементы</Filter>
+    </ClCompile>
+    <ClCompile Include="FontFactory.cpp">
+      <Filter>Шрифты</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

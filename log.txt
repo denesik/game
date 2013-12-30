@@ -1,1 +1,1 @@
-WARNING: GUIFontManager. Шрифт fps не найден.
+ERROR:   GUIManager. Попытка установить не существующий шрифт по умолчанию.
