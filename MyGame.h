@@ -2,13 +2,15 @@
 #define MyGame_h__
 
 #include "game.h"
-#include "GUIContainer.h"
 #include "TextureManager.h"
+#include "GUIComponent.h"
 
 class MyGame : public Game
 {
 private:
-	GUIManager *guiManager;
+
+	GUIComponent *guiComponent;
+
 	GUIObject *fps;
 
 	void test(int x1, int x2);

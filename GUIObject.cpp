@@ -17,7 +17,6 @@ GUIObject::~GUIObject(void)
 void GUIObject::SetFont( IFont *_font )
 {
 	font = _font;
-	guiManager->AddFont(font);
 }
 
 IFont * GUIObject::GetFont()
@@ -32,7 +31,7 @@ void GUIObject::LoadContent()
 	boundBox.w = boundBoxOriginal.w;
 	boundBox.h = boundBoxOriginal.h;
 
-	TextureManager *textureManager = guiManager->GetTextureManager();
+	TextureManager *textureManager = guiContainer->GetTextureManager();
 	windowTexture.borderTop			= textureManager->GetTexture("GUI_borderTop");
 	windowTexture.borderBot			= textureManager->GetTexture("GUI_borderBot");
 	windowTexture.borderLeft		= textureManager->GetTexture("GUI_borderLeft");
@@ -118,4 +117,19 @@ void GUIObject::Resize(int width, int height)
 	boundBox.y = int(boundBoxOriginal.y * h);
 	boundBox.w = int(boundBoxOriginal.w * w);
 	boundBox.h = int(boundBoxOriginal.h * h);
+}
+
+void GUIObject::SetContainer( GUIContainer *_guiContainerParent )
+{
+	guiContainer = _guiContainerParent;
+}
+
+GUIContainer * GUIObject::GetContainer()
+{
+	return guiContainer;
+}
+
+Rectangle2i GUIObject::GetBoundBox()
+{
+	return boundBox;
 }

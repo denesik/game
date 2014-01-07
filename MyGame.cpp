@@ -30,11 +30,10 @@ void MyGame::test(int x1, int x2)
 
 bool MyGame::Initialize()
 {
-
-	guiManager = new GUIManager(width, height);
-	AddGameComponent(guiManager);
-	GetEventHandler()->Add(guiManager);
-	guiManager->SetTextureManager(textureManager);
+	guiComponent = new GUIComponent(width, height);
+	AddGameComponent(guiComponent);
+	GetEventHandler()->Add(guiComponent);
+	guiComponent->SetTextureManager(textureManager);
 
 	Game::Initialize();
 
@@ -47,19 +46,23 @@ void MyGame::LoadContent()
 	IFont *f2 = FontTTFFactory::getInstance().CreateFont("fonts/FIEST24.TTF", "fps", 9);
 	IFont *f3 = FontTTFFactory::getInstance().CreateFont("fonts/ACADEROM.TTF", "ACADEROM", 10);
 
-	guiManager->SetDefaultFont(f1);
+	f1->Generate();
+	f2->Generate();
+	f3->Generate();
+
+	guiComponent->SetDefaultFont(f1);
 
 	GUIButton *g1 = new GUIButton(350,250,100,30, "Button 1");
 	GUIButton *g2 = new GUIButton(350,230,100,30, "Button 2");
-	guiManager->AddGUIObject(g1);
-	guiManager->AddGUIObject(g2);
+	guiComponent->AddGUIObject(g1);
+	guiComponent->AddGUIObject(g2);
 
 	//	GUILabel *gl1 = new GUILabel(500,250,"Текст на русском\nnew line!");
 	GUILabel *gl1 = new GUILabel(500,250,"Текст на русском\nМама мыла раму!");
-	guiManager->AddGUIObject(gl1);
+	guiComponent->AddGUIObject(gl1);
 
 	fps = new GUIFPS(5, 580);
-	guiManager->AddGUIObject(fps);
+	guiComponent->AddGUIObject(fps);
 	fps->SetFont(f3);
 
 	g1->MouseClickEvent.bind(this, &MyGame::test);

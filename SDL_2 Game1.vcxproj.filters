@@ -81,6 +81,9 @@
     <ClInclude Include="GUIContainer.h">
       <Filter>Графический интерфейс</Filter>
     </ClInclude>
+    <ClInclude Include="GUIComponent.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="GUIContainer.cpp">
       <Filter>Графический интерфейс</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIComponent.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,25 +6,24 @@
 #include "Font.h"
 
 
-class GUIManager : public GameComponent
+class GUIContainer
 {
 protected:
-	std::list<GUIObject *const> guiObjectLists;
+	
 	TextureManager *textureManager;
+	IFont *fontDefault;
 
 	int width;
 	int height;
 
-	IFont *fontDefault;
-	std::vector<IFont*> fontsVector;
+	std::list<GUIObject *const> guiObjectLists;
 
 public:
-	GUIManager(int width, int height);
-	~GUIManager(void);
+	GUIContainer(int width, int height);
+	~GUIContainer(void);
 
-	virtual bool Initialize();
-	virtual void Update();
 	virtual void LoadContent();
+	virtual void Update();
 	virtual void Draw(Render *render);
 	virtual void UnloadContent(){};
 
@@ -43,13 +42,9 @@ public:
 	int RemoveGUIObject(GUIObject *guiObject);
 	int AddGUIObject(GUIObject *guiObject);
 
-	bool AddFont(IFont *font);
-	bool RemoveFont(IFont *font);
 
 private:
 	bool HittingArea(int x, int y, Rectangle2i area);
-
-	bool GenerateFonts(int width, int height);
 
 };
 

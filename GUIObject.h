@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "Font.h"
 
-class GUIManager;
+class GUIContainer;
 
 struct WindowTexture
 {
@@ -23,7 +23,7 @@ struct WindowTexture
 class GUIObject
 {
 protected:
-	GUIManager *guiManager;
+	GUIContainer *guiContainer;
 
 	IFont *font;
 
@@ -39,18 +39,23 @@ public:
 	GUIObject(void);
 	~GUIObject(void);
 
-	friend GUIManager;
-
 	virtual void OnMouseMove(int x, int y){};
 	virtual void OnMouseClick(int button, int x, int y){};
 
 	virtual void Resize(int width, int height);
+
 	virtual void LoadContent();
 	virtual void Update(){};
 	virtual void Draw(Render *render);
+	virtual void UnloadContent(){};
 
 	virtual void SetFont(IFont *font);
 	virtual IFont *GetFont();
+
+	virtual void SetContainer(GUIContainer *guiContainerParent);
+	virtual GUIContainer *GetContainer();
+
+	virtual Rectangle2i GetBoundBox();
 };
 
 

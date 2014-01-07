@@ -41,12 +41,6 @@ bool FontTTF::Generate()
 	// Сделаем высоту немного больше, что бы оставить место между линиями.
 	float fsize = float(size) / 0.63f;		
 
-	return Generate(size);
-}
-
-bool FontTTF::Generate( unsigned int _size )
-{
-
 	FT_Face face;
 	if (FT_New_Face( library, filename.c_str(), 0, &face )) 
 	{
@@ -56,7 +50,7 @@ bool FontTTF::Generate( unsigned int _size )
 	// По некоторым причинам FreeType измеряет размер шрифта в терминах 1/64 пикселя.
 	// Таким образом, для того чтобы сделать шрифт выстой size пикселей, мы запрашиваем размер size*64.
 	// (size << 6 тоже самое что и size*64)
-	FT_Set_Char_Size( face, _size << 6, _size << 6, 96, 96);
+	FT_Set_Char_Size( face, size << 6, size << 6, 96, 96);
 
 	textureAtlas.Create(textureAtlasSizeX,textureAtlasSizeY);
 
@@ -71,14 +65,6 @@ bool FontTTF::Generate( unsigned int _size )
 	return true;
 }
 
-bool FontTTF::Generate( int width, int height )
-{
-	unsigned int _size = (unsigned int)(size * sqrt((float(width) / 800) * (float(height) / 600)));
-	// Сделаем высоту немного больше, что бы оставить место между линиями.
-	float fsize = float(_size) / 0.63f;
-
-	return Generate(_size);
-}
 
 void FontTTF::UnloadContent()
 {

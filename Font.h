@@ -31,7 +31,6 @@ public:
 
 	virtual bool Initialize() = 0;
 	virtual bool Generate() = 0;
-	virtual bool Generate(int width, int height){return true;};
 	virtual void UnloadContent() = 0;
 
 	virtual void Print(float x, float y, std::string str) = 0;
@@ -73,7 +72,6 @@ public:
 
 	virtual bool Initialize();
 	virtual bool Generate();
-	virtual bool Generate(int width, int height);
 	virtual void UnloadContent();
 
 	virtual void Print(float x, float y, std::string str);
@@ -81,7 +79,6 @@ public:
 	virtual Rectangle2i GetBoundBox(std::string str);
 
 protected:
-	bool Generate(unsigned int size);
 	void MakeFontAtlas ( FT_Face face, unsigned char ch);
 
 };
