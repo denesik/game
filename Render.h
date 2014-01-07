@@ -27,7 +27,7 @@ public:
 	bool ResizeWindow(int width, int height);
 
 	bool Initialize(const char* title, int width, int height, bool fullScreen);
-	void Cleanup();
+	void Finalize();
 	bool InitGL();
 
 	void SetTextureManager(TextureManager *textureManager);

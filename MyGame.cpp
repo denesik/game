@@ -59,8 +59,8 @@ void MyGame::LoadContent()
 	guiManager->AddGUIObject(gl1);
 
 	fps = new GUIFPS(5, 580);
-	fps->SetFont(f3);
 	guiManager->AddGUIObject(fps);
+	fps->SetFont(f3);
 
 	g1->MouseClickEvent.bind(this, &MyGame::test);
 
@@ -98,14 +98,8 @@ void MyGame::Draw()
 	Game::Draw();
 }
 
-void MyGame::Cleanup()
+void MyGame::UnloadContent()
 {
 
-	Game::Cleanup();
-}
-
-void MyGame::UnLoadContent()
-{
-
-	Game::UnLoadContent();
+	Game::UnloadContent();
 }

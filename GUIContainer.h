@@ -26,7 +26,7 @@ public:
 	virtual void Update();
 	virtual void LoadContent();
 	virtual void Draw(Render *render);
-	virtual void Cleanup(){};
+	virtual void UnloadContent(){};
 
 	virtual void Resize(int width, int height);
 

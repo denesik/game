@@ -32,7 +32,7 @@ public:
 	TextureManager(void);
 	~TextureManager(void);
 
-	void Cleanup();
+	void UnloadContent();
 
 	SDL_Surface *LoadSurfaceFromFile(std::string fileName);
 	unsigned int LoadImageFromSurface(SDL_Surface *surface, bool smoothing);

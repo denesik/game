@@ -21,7 +21,7 @@ FontTTF::FontTTF( std::string _filename, std::string _fontName, unsigned int _si
 
 FontTTF::~FontTTF( void )
 {
-	Cleanup();
+	UnloadContent();
 	FT_Done_FreeType(library);
 }
 
@@ -80,7 +80,7 @@ bool FontTTF::Generate( int width, int height )
 	return Generate(_size);
 }
 
-void FontTTF::Cleanup()
+void FontTTF::UnloadContent()
 {
 	textureAtlas.Remove();
 }

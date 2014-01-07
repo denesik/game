@@ -21,7 +21,7 @@
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIFPS.h" />
     <ClInclude Include="GUILabel.h" />
-    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIContainer.h" />
     <ClInclude Include="GUIObject.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MyGame.h" />
@@ -40,7 +40,7 @@
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIFPS.cpp" />
     <ClCompile Include="GUILabel.cpp" />
-    <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIContainer.cpp" />
     <ClCompile Include="GUIObject.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />

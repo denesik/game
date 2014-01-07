@@ -32,7 +32,7 @@ public:
 	virtual bool Initialize() = 0;
 	virtual bool Generate() = 0;
 	virtual bool Generate(int width, int height){return true;};
-	virtual void Cleanup() = 0;
+	virtual void UnloadContent() = 0;
 
 	virtual void Print(float x, float y, std::string str) = 0;
 
@@ -74,7 +74,7 @@ public:
 	virtual bool Initialize();
 	virtual bool Generate();
 	virtual bool Generate(int width, int height);
-	virtual void Cleanup();
+	virtual void UnloadContent();
 
 	virtual void Print(float x, float y, std::string str);
 

@@ -15,8 +15,7 @@ public:
 	virtual void LoadContent(){};
 	virtual void Update(){};
 	virtual void Draw(Render *render){};
-	virtual void UnLoadContent(){};
-	virtual void Cleanup(){};
+	virtual void UnloadContent(){};
 };
 
 #endif // GameComponent_h__

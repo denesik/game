@@ -1,4 +1,4 @@
-#include "GUIManager.h"
+#include "GUIContainer.h"
 #include "Logger.h"
 #include <algorithm>
 
@@ -54,6 +54,7 @@ void GUIManager::Draw(Render *render)
 int GUIManager::AddGUIObject(GUIObject *guiObject)
 {
 	guiObjectLists.push_back(guiObject);
+	guiObject->guiManager = this;
 
 	if(guiObject->font == nullptr)
 	{
@@ -68,7 +69,6 @@ int GUIManager::AddGUIObject(GUIObject *guiObject)
 		AddFont(guiObject->font);
 	}
 
-	guiObject->guiManager = this;
 	return 0;
 }
 

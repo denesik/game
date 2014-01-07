@@ -1,5 +1,5 @@
 #include "GUIObject.h"
-#include "GUIManager.h"
+#include "GUIContainer.h"
 
 GUIObject::GUIObject()
 {

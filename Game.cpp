@@ -12,18 +12,20 @@ Game::Game(void)
 	fullscreen = false;
 
 	render = new Render();
+	textureManager = new TextureManager();
 	eventHandler = new EventHandler();
 	gameComponentHandler = new GameComponentManager();
-	textureManager = new TextureManager();
+
 	render->SetTextureManager(textureManager);
 }
 
 
 Game::~Game(void)
 {
-	delete render;
-	delete eventHandler;
 	delete gameComponentHandler;
+	delete eventHandler;
+	delete textureManager;
+	delete render;
 }
 
 bool Game::Initialize()
@@ -75,9 +77,10 @@ int Game::Run()
 		render->SwapBuffers();
 	}
 
-	UnLoadContent();
+	UnloadContent();
 
-	Cleanup();
+	render->Finalize();
+	SDL_Quit();
 
 	return 0;
 }
@@ -94,19 +97,10 @@ void Game::Draw()
 	gameComponentHandler->Draw(render);
 }
 
-void Game::UnLoadContent()
+void Game::UnloadContent()
 {
-	gameComponentHandler->UnLoadContent();
-}
-
-void Game::Cleanup()
-{
-
-	gameComponentHandler->Cleanup();
-
-	render->Cleanup();
-	textureManager->Cleanup();
-	SDL_Quit();
+	gameComponentHandler->UnloadContent();
+	textureManager->UnloadContent();
 }
 
 IEventHandler *Game::GetEventHandler()

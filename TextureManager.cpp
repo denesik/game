@@ -25,7 +25,7 @@ SDL_Surface *TextureManager::LoadSurfaceFromFile(std::string fileName)
 }
 
 
-void TextureManager::Cleanup()
+void TextureManager::UnloadContent()
 {
 	for (auto i =  textureList.begin(); i != textureList.end(); ++i)
 	{

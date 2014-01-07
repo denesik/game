@@ -2,7 +2,7 @@
 #define MyGame_h__
 
 #include "game.h"
-#include "GUIManager.h"
+#include "GUIContainer.h"
 #include "TextureManager.h"
 
 class MyGame : public Game
@@ -21,8 +21,7 @@ public:
 	virtual void LoadContent();
 	virtual void Update();
 	virtual void Draw();
-	virtual void UnLoadContent();
-	virtual void Cleanup();
+	virtual void UnloadContent();
 };
 
 

@@ -33,8 +33,7 @@ public:
 	virtual void LoadContent(); 
 	virtual void Update();
 	virtual void Draw();
-	virtual void UnLoadContent(); 
-	virtual void Cleanup();
+	virtual void UnloadContent(); 
 
 	IEventHandler *GetEventHandler();
 	int AddGameComponent(GameComponent *gameComponent);

@@ -47,11 +47,11 @@ void GameComponentManager::Draw(Render *render)
 	}
 }
 
-void GameComponentManager::Cleanup()
+void GameComponentManager::UnloadContent()
 {
 	for (auto i =  gameComponents.begin(); i != gameComponents.end(); ++i)
 	{
-		(*i)->Cleanup();
+		(*i)->UnloadContent();
 	}
 }
 
@@ -60,14 +60,6 @@ void GameComponentManager::LoadContent()
 	for (auto i =  gameComponents.begin(); i != gameComponents.end(); ++i)
 	{
 		(*i)->LoadContent();
-	}
-}
-
-void GameComponentManager::UnLoadContent()
-{
-	for (auto i =  gameComponents.begin(); i != gameComponents.end(); ++i)
-	{
-		(*i)->UnLoadContent();
 	}
 }
 

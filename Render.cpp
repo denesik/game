@@ -72,7 +72,7 @@ bool Render::InitGL()
 	return true;
 }
 
-void Render::Cleanup()
+void Render::Finalize()
 {
 	SDL_GL_DeleteContext(context); 
 	SDL_DestroyRenderer(render);
