@@ -2,17 +2,15 @@
 #define Game_h__
 
 #include <SDL.h>
-#include "GameComponent.h"
-#include "GameComponentManager.h"
 #include "Render.h"
 #include "TextureManager.h"
+#include "EventHandler.h"
 
 class Game
 {
 protected:
 
 	IEventHandler *eventHandler;
-	GameComponentManager *gameComponentHandler;
 	Render *render;
 	TextureManager *textureManager;
 
@@ -36,7 +34,6 @@ public:
 	virtual void UnloadContent(); 
 
 	IEventHandler *GetEventHandler();
-	int AddGameComponent(GameComponent *gameComponent);
 
 };
 

@@ -142,6 +142,7 @@ void FontTTF::Print( float x, float y, std::string str )
 		glPopMatrix();
 	}
 	glTranslatef(-0.5, -0.5, 0.0);
+//	glDisable(GL_BLEND);
 	glPopAttrib();		
 }
 

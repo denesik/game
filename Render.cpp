@@ -36,6 +36,8 @@ bool Render::Initialize(const char* _title, int _width, int _height, bool _fullS
 
 	context = SDL_GL_CreateContext(window);
 
+	InitGL();
+
 	return true;
 }
 
@@ -62,10 +64,10 @@ bool Render::InitGL()
 
 	glShadeModel(GL_SMOOTH);							
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				
-//	glClearDepth(1.0f);									
-//	glEnable(GL_DEPTH_TEST);							
-//	glDepthFunc(GL_LEQUAL);								
-//	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glClearDepth(1.0f);									
+	glEnable(GL_DEPTH_TEST);							
+	glDepthFunc(GL_LEQUAL);								
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
 	glEnable(GL_TEXTURE_2D);
 
@@ -125,8 +127,6 @@ void Render::PushProjectionMatrix()
 	glLoadIdentity();
 	gluOrtho2D(viewport[0],viewport[2],viewport[1],viewport[3]);
 	glPopAttrib();
-	
-	glEnable(GL_TEXTURE_2D);
 }
 
 // Восстановить координаты матрицы проекции.

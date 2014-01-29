@@ -14,7 +14,6 @@ Game::Game(void)
 	render = new Render();
 	textureManager = new TextureManager();
 	eventHandler = new EventHandler();
-	gameComponentHandler = new GameComponentManager();
 
 	render->SetTextureManager(textureManager);
 }
@@ -22,7 +21,6 @@ Game::Game(void)
 
 Game::~Game(void)
 {
-	delete gameComponentHandler;
 	delete eventHandler;
 	delete textureManager;
 	delete render;
@@ -38,14 +36,11 @@ bool Game::Initialize()
 	
 	render->Initialize(title, width, height, fullscreen);
 
-	gameComponentHandler->Initialize();
-
 	return true;
 }
 
 void Game::LoadContent()
 {
-	gameComponentHandler->LoadContent();
 }
 
 int Game::Run()
@@ -88,28 +83,19 @@ int Game::Run()
 void Game::Update()
 {
 
-	gameComponentHandler->Update();
 }
 
 void Game::Draw()
 {
 
-	gameComponentHandler->Draw(render);
 }
 
 void Game::UnloadContent()
 {
-	gameComponentHandler->UnloadContent();
 	textureManager->UnloadContent();
 }
 
 IEventHandler *Game::GetEventHandler()
 {
 	return eventHandler;
-}
-
-int Game::AddGameComponent(GameComponent *gameComponent)
-{
-	gameComponentHandler->Add(gameComponent);
-	return 0;
 }

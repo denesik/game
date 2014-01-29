@@ -28,12 +28,12 @@
     <Filter Include="Графический интерфейс\ГУИ элементы">
       <UniqueIdentifier>{c7e3ca51-a4bb-47b0-8bd2-f48c84b95a13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Игровой уровень">
+      <UniqueIdentifier>{1e4155aa-cad7-4208-b442-8642addc7997}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="MyGame.h">
@@ -50,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Шрифты</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponentManager.h">
-      <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Рендер</Filter>
@@ -81,8 +78,11 @@
     <ClInclude Include="GUIContainer.h">
       <Filter>Графический интерфейс</Filter>
     </ClInclude>
-    <ClInclude Include="GUIComponent.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="GameSector.h">
+      <Filter>Игровой уровень</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Игровой уровень</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +93,6 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="EventHandler.cpp">
@@ -109,9 +106,6 @@
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Шрифты</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponentManager.cpp">
-      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
       <Filter>Рендер</Filter>
@@ -140,8 +134,11 @@
     <ClCompile Include="GUIContainer.cpp">
       <Filter>Графический интерфейс</Filter>
     </ClCompile>
-    <ClCompile Include="GUIComponent.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="GameSector.cpp">
+      <Filter>Игровой уровень</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Игровой уровень</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

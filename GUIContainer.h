@@ -1,12 +1,13 @@
 #ifndef GUIManager_h__
 #define GUIManager_h__
 
-#include "gamecomponent.h"
 #include "GUIObject.h"
 #include "Font.h"
+#include <list>
+#include "EventHandler.h"
 
 
-class GUIContainer
+class GUIContainer : public IEvent
 {
 protected:
 	

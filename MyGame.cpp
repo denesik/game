@@ -30,10 +30,9 @@ void MyGame::test(int x1, int x2)
 
 bool MyGame::Initialize()
 {
-	guiComponent = new GUIComponent(width, height);
-	AddGameComponent(guiComponent);
-	GetEventHandler()->Add(guiComponent);
-	guiComponent->SetTextureManager(textureManager);
+	gui = new GUIContainer(width, height);
+	GetEventHandler()->Add(gui);
+	gui->SetTextureManager(textureManager);
 
 	Game::Initialize();
 
@@ -50,19 +49,19 @@ void MyGame::LoadContent()
 	f2->Generate();
 	f3->Generate();
 
-	guiComponent->SetDefaultFont(f1);
+	gui->SetDefaultFont(f1);
 
 	GUIButton *g1 = new GUIButton(350,250,100,30, "Button 1");
 	GUIButton *g2 = new GUIButton(350,230,100,30, "Button 2");
-	guiComponent->AddGUIObject(g1);
-	guiComponent->AddGUIObject(g2);
+	gui->AddGUIObject(g1);
+	gui->AddGUIObject(g2);
 
 	//	GUILabel *gl1 = new GUILabel(500,250,"Текст на русском\nnew line!");
 	GUILabel *gl1 = new GUILabel(500,250,"Текст на русском\nМама мыла раму!");
-	guiComponent->AddGUIObject(gl1);
+	gui->AddGUIObject(gl1);
 
 	fps = new GUIFPS(5, 580);
-	guiComponent->AddGUIObject(fps);
+	gui->AddGUIObject(fps);
 	fps->SetFont(f3);
 
 	g1->MouseClickEvent.bind(this, &MyGame::test);
@@ -81,28 +80,44 @@ void MyGame::LoadContent()
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 0, 31, 9, 22), "GUI_borderBotLeft");
 	textureManager->AddTexture(textureManager->GetTextureFromImage(tertureId, 15, 15, 16, 16), "GUI_body");
 
-	Game::LoadContent();
+	gui->LoadContent();
+
+
+	testBlock = new Block();
+
+	//Game::LoadContent();
 
 }
 
 void MyGame::Update()
 {
-
-	Game::Update();
+	gui->Update();
+	//Game::Update();
 }
 
 void MyGame::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();	
-//	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);			
 
-	Game::Draw();
+
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
+	testBlock->Draw(render);
+
+	glLoadIdentity();
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	gui->Draw(render);
+
+	//Game::Draw();
 }
 
 void MyGame::UnloadContent()
 {
 
+	gui->UnloadContent();
 	Game::UnloadContent();
 }

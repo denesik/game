@@ -3,17 +3,18 @@
 
 #include "game.h"
 #include "TextureManager.h"
-#include "GUIComponent.h"
+#include "GUIContainer.h"
+#include "Block.h"
 
 class MyGame : public Game
 {
 private:
-
-	GUIComponent *guiComponent;
-
+	GUIContainer *gui;
 	GUIObject *fps;
 
 	void test(int x1, int x2);
+
+	Block *testBlock;
 
 public:
 	MyGame(void);
