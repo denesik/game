@@ -39,9 +39,6 @@
     <ClInclude Include="MyGame.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="EventHandler.h">
-      <Filter>События</Filter>
-    </ClInclude>
     <ClInclude Include="GameMath.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
@@ -103,9 +100,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="EventHandler.cpp">
-      <Filter>События</Filter>
     </ClCompile>
     <ClCompile Include="GameMath.cpp">
       <Filter>Файлы исходного кода</Filter>

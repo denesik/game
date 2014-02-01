@@ -62,7 +62,7 @@ void Keyboard::Update()
 
 	for(unsigned int key = 0; key < SDL_NUM_SCANCODES; key++)
 	{
-		keys[key] &= (!KEY_PRESS);
+		keys[key] &= (~KEY_PRESS);
 
 		if((keys[key] & KEY_LAST_DOWN) == 0)
 		{
@@ -80,7 +80,7 @@ void Keyboard::Update()
 		}
 		else
 		{
-			keys[key] &= (!KEY_LAST_DOWN);
+			keys[key] &= (~KEY_LAST_DOWN);
 		}
 
 	}

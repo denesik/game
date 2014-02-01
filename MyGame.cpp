@@ -31,7 +31,7 @@ void MyGame::test(int x1, int x2)
 bool MyGame::Initialize()
 {
 	gui = new GUIContainer(width, height);
-	GetEventHandler()->Add(gui);
+//	GetEventHandler()->Add(gui);
 	gui->SetTextureManager(textureManager);
 
 	Game::Initialize();
@@ -120,4 +120,10 @@ void MyGame::UnloadContent()
 
 	gui->UnloadContent();
 	Game::UnloadContent();
+}
+
+void MyGame::ResizeWindow( unsigned int width, unsigned int height )
+{
+	Game::ResizeWindow(width, height);
+	gui->Resize(width, height);
 }

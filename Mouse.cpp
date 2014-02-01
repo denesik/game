@@ -1,7 +1,7 @@
 #include "Mouse.h"
 
 
-Mouse::ButtonEventState Mouse::mouseButton[5];
+Mouse::ButtonEventState Mouse::mouseButton[6];
 
 void Mouse::Init()
 {
@@ -10,7 +10,7 @@ void Mouse::Init()
 	buttonEventState.x = 0;
 	buttonEventState.y = 0;
 
-	for(unsigned int i = 0; i < 5; i++)
+	for(unsigned int i = 0; i < 6; i++)
 	{
 		mouseButton[i] = buttonEventState;
 	}
@@ -25,6 +25,7 @@ void Mouse::ButtonDown( MouseButtonEvent button )
 
 void Mouse::ButtonUp( MouseButtonEvent button )
 {
+	mouseButton[button.button].state = 10;
 	mouseButton[button.button].state = BUTTON_UP;
 	mouseButton[button.button].x = button.x;
 	mouseButton[button.button].y = button.y;
@@ -74,9 +75,13 @@ void Mouse::ButtonLock( unsigned int button )
 
 void Mouse::Update()
 {
-	for(unsigned int button = 0; button < 5; button++)
+	for(unsigned int button = 0; button < 6; button++)
 	{
-		mouseButton[button].state &= (!BUTTON_PRESS);
+		mouseButton[button].state &= (~BUTTON_PRESS);
+
+		unsigned int test = ~4;
+		test &= 1;
+		test;
 
 		if((mouseButton[button].state & BUTTON_LAST_DOWN) == 0)
 		{
@@ -94,7 +99,7 @@ void Mouse::Update()
 		}
 		else
 		{
-			mouseButton[button].state &= (!BUTTON_LAST_DOWN);
+			mouseButton[button].state &= (~BUTTON_LAST_DOWN);
 		}
 
 	}

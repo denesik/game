@@ -10,6 +10,10 @@ class EventManager
 
 public:
 
+	static void Init();
+
+	static void Update();
+
 	static void OnEvent(SDL_Event* Event);
 };
 

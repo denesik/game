@@ -25,6 +25,28 @@ void GUIContainer::LoadContent()
 
 void GUIContainer::Update()
 {
+	MouseButtonEvent buttonEvent;
+	buttonEvent.button = SDL_BUTTON_LEFT;
+	if(Mouse::IsButtonPress(buttonEvent))
+	{
+		buttonEvent.y = height - buttonEvent.y;
+
+		for (auto i = guiObjectLists.rbegin(); i != guiObjectLists.rend(); i++)
+		{
+			GUIObject *guiObject = *i;
+
+			if( HittingArea(buttonEvent.x, buttonEvent.y, guiObject->GetBoundBox()) )
+			{
+				guiObjectLists.remove(guiObject);
+				guiObjectLists.push_back(guiObject);
+
+				guiObject->OnMouseClick(buttonEvent.button, buttonEvent.x, buttonEvent.y);
+				return;
+			}
+			// Список перемешался цикл нужно завершить.
+		}
+	}
+
 	for (auto i =  guiObjectLists.begin(); i != guiObjectLists.end(); ++i)
 	{
 		(*i)->Update();
@@ -85,25 +107,6 @@ void GUIContainer::SetTextureManager( TextureManager *_textureManager )
 TextureManager *GUIContainer::GetTextureManager()
 {
 	return textureManager;
-}
-
-void GUIContainer::OnMouseButtonClick( int button, int x, int y )
-{
-	y = height - y;
-	for (auto i = guiObjectLists.rbegin(); i != guiObjectLists.rend(); i++)
-	{
-		GUIObject *guiObject = *i;
-
-		if( HittingArea(x, y, guiObject->GetBoundBox()) )
-		{
-			guiObjectLists.remove(guiObject);
-			guiObjectLists.push_back(guiObject);
-
-			guiObject->OnMouseClick(button, x, y);
-			return;
-		}
-		// Список перемешался цикл нужно завершить.
-	}
 }
 
 bool GUIContainer::HittingArea(int x, int y, Rectangle2i area)

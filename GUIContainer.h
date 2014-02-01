@@ -4,10 +4,12 @@
 #include "GUIObject.h"
 #include "Font.h"
 #include <list>
-#include "EventHandler.h"
+//#include "EventHandler.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 
 
-class GUIContainer : public IEvent
+class GUIContainer
 {
 protected:
 	
@@ -30,9 +32,9 @@ public:
 
 	virtual void Resize(int width, int height);
 
-	virtual void OnMouseButtonDown(int button, int x, int y){};
-	virtual void OnMouseButtonUp(int button, int x, int y){};
-	virtual void OnMouseButtonClick(int button, int x, int y);
+	//virtual void OnMouseButtonDown(int button, int x, int y){};
+	//virtual void OnMouseButtonUp(int button, int x, int y){};
+	//virtual void OnMouseButtonClick(int button, int x, int y);
 
 	void SetTextureManager(TextureManager *textureManager);
 	TextureManager *GetTextureManager();

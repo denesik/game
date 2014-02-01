@@ -29,7 +29,7 @@ private:
 		int x, y;
 	};
 
-	static ButtonEventState mouseButton[5];
+	static ButtonEventState mouseButton[6];
 
 public:
 

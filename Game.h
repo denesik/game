@@ -4,22 +4,21 @@
 #include <SDL.h>
 #include "Render.h"
 #include "TextureManager.h"
-#include "EventHandler.h"
+//#include "EventHandler.h"
 #include "EventManager.h"
 
 class Game
 {
 protected:
 
-	IEventHandler *eventHandler;
 	Render *render;
 	TextureManager *textureManager;
 
 	bool Running;
 
 	const char* title;
-	int width;
-	int height;
+	unsigned int width;
+	unsigned int height;
 	bool fullscreen;
 
 public:
@@ -32,9 +31,8 @@ public:
 	virtual void LoadContent(); 
 	virtual void Update();
 	virtual void Draw();
+	virtual void ResizeWindow(unsigned int width, unsigned int height);
 	virtual void UnloadContent(); 
-
-	IEventHandler *GetEventHandler();
 
 };
 

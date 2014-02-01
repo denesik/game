@@ -74,3 +74,15 @@ void EventManager::OnEvent( SDL_Event* event )
 	}
 	
 }
+
+void EventManager::Init()
+{
+	Keyboard::Init();
+	Mouse::Init();
+}
+
+void EventManager::Update()
+{
+	Keyboard::Update();
+	Mouse::Update();
+}

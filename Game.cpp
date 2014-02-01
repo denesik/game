@@ -13,7 +13,6 @@ Game::Game(void)
 
 	render = new Render();
 	textureManager = new TextureManager();
-	eventHandler = new EventHandler();
 
 	render->SetTextureManager(textureManager);
 }
@@ -21,7 +20,6 @@ Game::Game(void)
 
 Game::~Game(void)
 {
-	delete eventHandler;
 	delete textureManager;
 	delete render;
 }
@@ -34,6 +32,8 @@ bool Game::Initialize()
 		Running = false;
 	}
 	
+	EventManager::Init();
+
 	render->Initialize(title, width, height, fullscreen);
 
 	return true;
@@ -62,12 +62,14 @@ int Game::Run()
 			if(event.type == SDL_QUIT)
 				Running=false;
 			if(event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED)
-				render->ResizeWindow(event.window.data1, event.window.data2);
-
-			eventHandler->OnEvent(&event);
-			//EventManager::OnEvent(&event);
+			{
+				ResizeWindow(event.window.data1, event.window.data2);
+			}
+			
+			EventManager::OnEvent(&event);
 		}
 
+		EventManager::Update();
 		Update();
 		Draw();
 		render->SwapBuffers();
@@ -96,7 +98,9 @@ void Game::UnloadContent()
 	textureManager->UnloadContent();
 }
 
-IEventHandler *Game::GetEventHandler()
+void Game::ResizeWindow( unsigned int _width, unsigned int _height )
 {
-	return eventHandler;
+	width = _width;
+	height = _height;
+	render->ResizeWindow(width, height);
 }
