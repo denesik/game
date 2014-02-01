@@ -84,6 +84,15 @@
     <ClInclude Include="Block.h">
       <Filter>Игровой уровень</Filter>
     </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>События</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>События</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>События</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -139,6 +148,15 @@
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>Игровой уровень</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>События</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>События</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>События</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

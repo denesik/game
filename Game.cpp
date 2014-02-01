@@ -53,18 +53,19 @@ int Game::Run()
 
 	LoadContent();
 
-	SDL_Event Event;
+	SDL_Event event;
 
 	while(Running) 
 	{
-		while(SDL_PollEvent(&Event)) 
+		while(SDL_PollEvent(&event)) 
 		{
-			if(Event.type == SDL_QUIT)
+			if(event.type == SDL_QUIT)
 				Running=false;
-			if(Event.type == SDL_WINDOWEVENT && Event.window.event == SDL_WINDOWEVENT_RESIZED)
-				render->ResizeWindow(Event.window.data1, Event.window.data2);
+			if(event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED)
+				render->ResizeWindow(event.window.data1, event.window.data2);
 
-			eventHandler->OnEvent(&Event);
+			eventHandler->OnEvent(&event);
+			//EventManager::OnEvent(&event);
 		}
 
 		Update();

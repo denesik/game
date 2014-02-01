@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="FontFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Font.h" />
@@ -23,7 +24,9 @@
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="GUIContainer.h" />
     <ClInclude Include="GUIObject.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="TextureAtlas.h" />
@@ -32,6 +35,7 @@
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="EventHandler.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FontFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -42,8 +46,10 @@
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="GUIContainer.cpp" />
     <ClCompile Include="GUIObject.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="TextureAtlas.cpp" />

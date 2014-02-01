@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "TextureManager.h"
 #include "EventHandler.h"
+#include "EventManager.h"
 
 class Game
 {
